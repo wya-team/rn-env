@@ -29,6 +29,7 @@ const ajax = _opts => {
 	let xhr;
 	HotPromise.prototype.cancel = () => {
 		xhr instanceof XMLHttpRequest && (
+			xhr.__ABORTED__ = true,
 			xhr.abort(), 
 			xhr = null, 
 			console.log(`XMLHttpRequest Abort`)
@@ -120,7 +121,7 @@ const ajax = _opts => {
 							});
 						}
 					} else {
-						if (xhr.status === 0 && xhr._aborted === true){
+						if (xhr.status === 0 && xhr.__ABORTED__ === true){
 							return;
 						}
 						reject({
