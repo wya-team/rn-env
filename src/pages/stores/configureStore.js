@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import thunk from 'redux-thunk';
+import api from '../middleware/api';
 // 持久化数据, 具体参考官方
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -20,13 +21,10 @@ rootReducer = persistReducer(config, reducers);
 // 	otherReducer: otherReducer,
 // })
 
-// 中间件开发 saga开发方式
-import api from '../middleware/api';
 
 // 调试模式
 import { DEBUG } from '../constants/constants';
 
-const sagaMiddleware = createSagaMiddleware();
 // Chrome 结合 RemoteDev软件开发
 import { composeWithDevTools } from 'remote-redux-devtools';
 const configureStore = (initialState = {}) => {
@@ -34,11 +32,11 @@ const configureStore = (initialState = {}) => {
 	let finalCreateStore = null;
 	if (DEBUG && __DEV__) {
 		finalCreateStore = composeWithDevTools(
-			applyMiddleware(sagaMiddleware)
+			applyMiddleware(thunk, api)
 		)(createStore);
 	} else {
 		finalCreateStore = compose(
-			applyMiddleware(sagaMiddleware)
+			applyMiddleware(thunk, api)
 		)(createStore);
 	}
 
@@ -49,7 +47,6 @@ const configureStore = (initialState = {}) => {
 		store.getState(); // if you want to get restoredState
 	});
 
-	sagaMiddleware.run(api);
 
 	if (module.hot) {
 		// Enable hot module replacement for reducers

@@ -32,10 +32,10 @@ class Content extends React.Component {
 				<Text> {count} 次数</Text>
 				<Text>&nbsp;</Text>
 				<Button
-					onClick={() => actions.plusFn()}
+					onClick={() => (actions.plusFn(), Toast.info('操作成功 +1', 1.5))}
 				>+</Button>
 				<Button
-					onClick={() => actions.minFn()}
+					onClick={() => (actions.minFn(), Toast.info('操作成功 -1', 1.5))}
 				>-</Button>
 				<Button
 					onClick={this.handleAsync}

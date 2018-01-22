@@ -35,6 +35,7 @@ const ajax = _opts => {
 		);
 	};
 	return new HotPromise((resolve, reject) => {
+		console.log(_opts);
 		/**
 		 * @param  {String} url 服务地址
 		 * @param  {Object} param 参数
@@ -54,7 +55,9 @@ const ajax = _opts => {
 			requestType,
 			tipMsg
 		} = _opts;
+		let messageError = '网络不稳定，请稍后重试';
 		let method = type.toUpperCase(); // 默认转化为大写
+		let isJson = requestType === 'json';
 		if (!url && !localData) {
 			console.error('请求地址不存在');
 			reject({
@@ -77,7 +80,10 @@ const ajax = _opts => {
 					return;
 				case 0:
 				case false:
-					reject(response);
+					reject({
+						msg: messageError,
+						...response
+					});
 					return;
 				default:
 					otherCb && otherCb(response, resolve, reject);
@@ -98,6 +104,7 @@ const ajax = _opts => {
 		xhr = new XMLHttpRequest();
 		try {
 			xhr.onreadystatechange = () => {
+				console.log(xhr);
 				if (xhr.readyState == 4) {
 
 					!noLoading && loadedFn && loadedFn(noLoading);
@@ -107,20 +114,18 @@ const ajax = _opts => {
 							let data = JSON.parse(xhr.responseText);
 							onDataReturn(data);
 						} catch (e) {
-							let msg = "网络不稳定，请稍后重试.";
 							reject({
 								retcode: xhr.status,
-								msg: msg
+								msg: `${messageError}.`
 							});
 						}
 					} else {
-						if (xhr.status === 0 ){
-							// 主动取消
+						if (xhr.status === 0 && xhr._aborted === true){
 							return;
 						}
 						reject({
 							retcode: xhr.status,
-							msg: '网络不稳定，请稍后重试..'
+							msg: `${messageError}..`
 						});
 					}
 					xhr = null;
@@ -170,11 +175,13 @@ const ajax = _opts => {
 				script.src = url;
 				head.appendChild(script);
 			} else {
-				let req = '';
+				let req = undefined;
 				switch (method){
 					case 'PUT':
 					case 'POST':
-						req = JSON.stringify(param);
+						req = typeof param === 'object'
+							? JSON.stringify(param)
+							: undefined;
 						break;
 					case 'DELETE':
 					case 'GET':
@@ -189,12 +196,15 @@ const ajax = _opts => {
 				xhr.withCredentials = true; // 允许发送cookie
 				// 跨域资源请求会发生两次 一次是204 可以参考cors // 无视就好
 				xhr.setRequestHeader(
-					'Content-Type', requestType == 'json' ? `application/json;charset=utf-8` : `application/x-www-form-urlencoded`
+					'Content-Type', isJson ? `application/json;charset=utf-8` : `application/x-www-form-urlencoded`
 				);
 				xhr.setRequestHeader(
 					'X-Requested-With', 'XMLHttpRequest'
 				);
-				xhr.send(method === 'POST' ? paramArray.join('&') : '');
+				
+				isJson
+					? xhr.send(req)
+					: xhr.send(method === 'POST' ? paramArray.join('&') : undefined);
 			}
 
 		} catch (e) {

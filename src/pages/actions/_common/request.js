@@ -7,13 +7,16 @@ import * as types from '../../constants/actions/_common';
  * @param   requiredFields 
  * @return                 next
  */
-export const request = (apiName, params, opts = {}, requiredFields = []) => {
-	return {
-		'API': {
-			apiName: apiName,
-			params: params,
-			opts: opts
-		},
-		type: types.API_REQUEST
+export function request(apiName, params, opts = {}, requiredFields = []) {
+	return (dispatch, getState) => {
+		let action = {
+			'API': {
+				apiName: apiName,
+				params: params,
+				opts: opts
+			},
+			type: types.API_REQUEST
+		};
+		return dispatch(action);
 	};
-};
+}
