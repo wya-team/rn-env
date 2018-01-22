@@ -1,0 +1,13 @@
+{
+	"expo": {
+		"name": "RNExample",
+		"description": "RNExample",
+		"version": "1.0.0",
+		"slug": "RNExample",
+		"privacy": "public",
+		"orientation": "portrait",
+		"primaryColor": "#cccccc",
+		"sdkVersion": "25.0.0",
+		"entryPoint": "./node_modules/react-native-scripts/build/bin/crna-entry.js"
+	}
+}
