@@ -8,6 +8,15 @@
 		"orientation": "portrait",
 		"primaryColor": "#cccccc",
 		"sdkVersion": "25.0.0",
-		"entryPoint": "./node_modules/react-native-scripts/build/bin/crna-entry.js"
+		"entryPoint": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+		"ios": {
+			"bundleIdentifier": "com.deot.rn"
+		},
+		"android": {
+			"package": "com.deot.rn"
+		},
+		"splash": {
+			"image": "./src/assets/images/splash.png"
+		}
 	}
 }

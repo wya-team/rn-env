@@ -1,16 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { color } from './modules/color';
 import { flex } from './modules/flex';
 import { layout } from './modules/layout';
 import { decorate } from './modules/decorate';
 import { text } from './modules/text';
 import { position } from './modules/position';
+import { group } from './modules/group';
 const styleCommon = {
 	...flex,
 	...layout,
 	...decorate,
 	...text,
 	...color,
-	...position
+	...position,
+	...group
 };
 /**
  * 样式转换

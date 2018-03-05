@@ -1,4 +1,9 @@
 import { Toast } from 'antd-mobile';
+import { NavigationActions } from 'react-navigation';
+import { setItem, getItem, delItem } from './utils';
+import { _global } from '../router/_global';
+import { _navigation } from '../router/Router';
+let timer = new Date;
 const loadingFn = (msg) => {
 	Toast.hide();
 	Toast.loading(null, 0);
@@ -9,11 +14,50 @@ const loadedFn = () => {
 const setCb = () => {
 
 };
-const otherCb = () => {
+const otherCb = (res, successCb, errorCb) => {
+	const { status } = res || {};
+	const now = new Date;
+	if (now - timer < 500) { // 500 毫秒以内，只执行第一次
+		return;
+	} 
+	timer = now;
+	try {
+		switch (status) {
+			case -1: // 代表退出登录
+				_global.token = null;
+				delItem(`token`);
+				const resetAction = NavigationActions.reset({
+					index: 0,
+					actions: [
+						NavigationActions.navigate({ routeName: 'LoginMain' }),
+					],
+				});
+				_navigation.dispatch(resetAction);
+				return;
+			default:
+				return;
+		}
+	} catch (e) {
+		console.log('otherCb', e);
+	}
+	
 
 };
+const setUrlParams = (opts, token) => {
+	let url = opts.url;
+	let paramArray = [`token=${token}`];
+	url += (url.indexOf('?') > -1 ? '&' : '?') + paramArray.join('&');
+	return {
+		...opts,
+		url
+	};
+};
 const opts = {
-
+	onBefore: (opts) => {
+		return Promise.resolve(
+			setUrlParams(opts, _global.token)
+		);
+	}
 };
 /**
  * ajax
@@ -35,8 +79,7 @@ const ajax = _opts => {
 			console.log(`XMLHttpRequest Abort`)
 		);
 	};
-	return new HotPromise((resolve, reject) => {
-		console.log(_opts);
+	return new HotPromise( async (resolve, reject) => {
 		/**
 		 * @param  {String} url 服务地址
 		 * @param  {Object} param 参数
@@ -46,6 +89,17 @@ const ajax = _opts => {
 		 * @param  {Str} requestType 请求类型 'json' | 'form-data'
 		 * @param  {Str} tipMsg 提示文字
 		 */
+		const { onBefore, onAfter } = _opts;
+		// url配置
+		if (onBefore && typeof onBefore === 'function') {
+			try {
+				_opts = await onBefore(_opts) || _opts;
+			} catch (e) {
+				console.log(e);
+			}
+			
+		}
+		// -- end -- 
 		let {
 			url,
 			param,
@@ -68,7 +122,16 @@ const ajax = _opts => {
 		}
 		!noLoading && loadingFn && loadingFn(tipMsg);
 		let cgiSt = Date.now();
-		let onDataReturn = response => {
+		let onDataReturn = async (response) => {
+			if (onAfter && typeof onAfter === 'function') {
+				try {
+					response = await onAfter(response) || response;
+				} catch (e) {
+					return;
+				}
+				
+			}
+
 			if (setCb) {
 				let isExit = setCb(response);
 				if (isExit) return;

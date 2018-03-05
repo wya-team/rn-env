@@ -9,17 +9,27 @@ const config = {
 	version: "1.0.0",
 	storage
 };
+// 
+import {
+	createReduxBoundAddListener,
+	createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
 
+const navMiddleware = createReactNavigationReduxMiddleware(
+	"root",
+	state => state.commonNav,
+);
+export const addListener = createReduxBoundAddListener("root");
 import reducers from '../reducers/rootReducer';
-
+let rootReducer;
 // 针对所有的reducer都做缓存
-rootReducer = persistReducer(config, reducers);
+// rootReducer = persistReducer(config, reducers);
 
 // 只针对部分做缓存
 // rootReducer = combineReducers({
 // 	authReducer: persistReducer(authPersistConfig, authReducer),
 // 	otherReducer: otherReducer,
-// })
+// });
 
 
 // 调试模式
@@ -32,15 +42,15 @@ const configureStore = (initialState = {}) => {
 	let finalCreateStore = null;
 	if (DEBUG && __DEV__) {
 		finalCreateStore = composeWithDevTools(
-			applyMiddleware(thunk, api)
+			applyMiddleware(thunk, navMiddleware, api)
 		)(createStore);
 	} else {
 		finalCreateStore = compose(
-			applyMiddleware(thunk, api)
+			applyMiddleware(thunk, navMiddleware, api)
 		)(createStore);
 	}
 
-	const store = finalCreateStore(rootReducer, initialState);
+	const store = finalCreateStore(rootReducer || reducers, initialState);
 	// 持久化配置 
 	// if (typeof self === 'object')
 	persistStore(store, null, () => {
@@ -59,3 +69,4 @@ const configureStore = (initialState = {}) => {
 	return store;
 };
 export default configureStore;
+

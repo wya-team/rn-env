@@ -1,9 +1,11 @@
 import { DEV_WITH_SERVER } from './constants';
 import home from './api/home';
 import days from './api/days';
+import login from './api/login';
 const API = {
 	...home,
-	...days
+	...days,
+	...login
 };
 let baseUrl;
 /* global __DEV__ */

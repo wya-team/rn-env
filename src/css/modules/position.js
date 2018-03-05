@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
 
 const dimensionWidth = Dimensions.get('window').width;
 const dimensionHeight = Dimensions.get('window').height;
@@ -11,7 +11,7 @@ export const position = {
 	'g-p-a': {
 		position: 'absolute'
 	},
-	'g-p-a': {
+	'g-p-f': {
 		position: 'fixed'
 	},
 	'g-t-0': {

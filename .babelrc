@@ -23,6 +23,7 @@
 					"@images": "./src/images",
 					"@actions": "./src/pages/actions",
 					"@components": "./src/pages/components",
+					"@common":"./src/pages/components/_common",
 					"@constants": "./src/pages/constants",
 					"@containers": "./src/pages/containers",
 					"@middleware": "./src/pages/middleware",

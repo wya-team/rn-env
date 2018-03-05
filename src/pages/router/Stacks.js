@@ -3,6 +3,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { homeConfig, homeTabConfig } from '../containers/Home/App';
 import { mineConfig, mineTabConfig } from '../containers/Mine/App';
 import { daysConfig } from '../containers/Days/App';
+import { loginConfig } from '../containers/Login/App';
 // 标签页
 const tabConfig = {
 	screen: TabNavigator(
@@ -12,7 +13,7 @@ const tabConfig = {
 			
 		},
 		{
-			lazy: true,
+			lazy: true, // 控制tab模块是否都一开始加载
 			tabBarPosition: 'bottom',
 			tabBarOptions: {
 				activeTintColor: '#3e9ce9',
@@ -34,13 +35,14 @@ const tabConfig = {
 // 路由设置
 const RouteConfigs = {
 	TabBar: tabConfig,
+	...loginConfig,
 	...mineConfig,
 	...daysConfig,
 
 };
 // 路由配置
 const StackConfig = {
-	// initialRouteName: 'TabBar',
+	initialRouteName: 'TabBar',
 	// mode: 'modal',
 	// headerMode: 'screen'
 };

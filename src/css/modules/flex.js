@@ -38,11 +38,8 @@ export const flex = {
 	'g-ai-fe': {
 		alignItems: 'flex-end'
 	},
-	'g-ps-a': {
-		position: 'absolute'
-	},
-	'g-ps-r': {
-		position: 'relative'
+	'g-ai-s': {
+		alignItems: 'stretch'
 	},
 	'g-fw-w': {
 		flexWrap: 'wrap'
@@ -50,11 +47,14 @@ export const flex = {
 	'g-ac-fs': {
 		alignContent: 'flex-start'
 	},
-	'g-as-fc': {
-		alignSelf: 'flex-center'
+	'g-as-c': {
+		alignSelf: 'center'
 	},
 	'g-as-fd': {
 		alignSelf: 'flex-end'
+	},
+	'g-as-s': {
+		alignSelf: 'stretch'
 	},
 	'g-col': {
 		flex: 1
@@ -64,6 +64,9 @@ export const flex = {
 	},
 	'g-col-3': {
 		flex: 3
+	},
+	'g-col-4': {
+		flex: 4
 	},
 	'g-w-full': {
 		width: dimensionWidth
@@ -87,6 +90,6 @@ export const flex = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		boxSizing: 'border-box',
+		// boxSizing: 'border-box',
 	}
 };

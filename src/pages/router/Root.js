@@ -4,6 +4,8 @@ import { View, Text } from 'react-native';
 import { AppLoading, Font } from 'expo';
 
 import configureStore from '../stores/configureStore';
+import { _global } from './_global';
+import { getItem } from '../utils/utils';
 /**
  * pages
  */
@@ -19,24 +21,36 @@ class Root extends React.Component {
 		super(props, context);
 		this.state = {
 			loaded: false,
+			info: {}
 		};
 	}
-	componentWillMount() {
-		this._loadAssetsAsync();
+	componentDidMount() {
+		this.loadAssetsAsync();
 	}
 
-	_loadAssetsAsync = async () => {
-		// 字体库 如：fontFamily: 'anticon'
-		await Font.loadAsync({
-			anticon: require('../../fonts/anticon.ttf'),
-		});
-		this.setState({ loaded: true });
+	loadAssetsAsync = async () => {
+		try {
+			// 字体库 如：fontFamily: 'anticon'
+			await Font.loadAsync({
+				anticon: require('../../assets/fonts/iconfont.ttf'),
+			});
+			const { access_token } = await getItem('access_token') || {};
+			_global.token = access_token;
+
+			this.setState({ 
+				loaded: true
+			});
+
+		} catch (e) {
+
+		}
 	};
 	render() {
-		if (!this.state.loaded) return <AppLoading />;
+		const { loaded, info } = this.state;
+		if (!loaded) return <AppLoading />;
 		return (
 			<Provider store={store}>
-				<Router />
+				<Router/>
 			</Provider>
 		);
 	}
