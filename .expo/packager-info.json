@@ -1,5 +1,8 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 45416
+  "packagerPid": 2406,
+  "expoServerNgrokUrl": "https://yn-fgc.deot.rn-env.exp.direct",
+  "packagerNgrokUrl": "https://packager.yn-fgc.deot.rn-env.exp.direct",
+  "ngrokPid": 2424
 }

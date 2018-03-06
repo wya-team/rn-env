@@ -1,8 +1,9 @@
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Platform } from 'react-native';
 // config
 import { homeConfig, homeTabConfig } from '../containers/Home/App';
 import { mineConfig, mineTabConfig } from '../containers/Mine/App';
-import { daysConfig } from '../containers/Days/App';
+import { tplConfig } from '../containers/__tpl__/App';
 import { loginConfig } from '../containers/Login/App';
 // 标签页
 const tabConfig = {
@@ -37,14 +38,14 @@ const RouteConfigs = {
 	TabBar: tabConfig,
 	...loginConfig,
 	...mineConfig,
-	...daysConfig,
+	...tplConfig,
 
 };
 // 路由配置
 const StackConfig = {
 	initialRouteName: 'TabBar',
-	// mode: 'modal',
-	// headerMode: 'screen'
+	headerMode: 'none',
+	mode: Platform.OS === 'ios' ? 'card' : 'modal',
 };
 // 路由堆栈
 export const Stacks = StackNavigator(RouteConfigs, StackConfig);

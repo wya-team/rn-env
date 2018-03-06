@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { Button, Toast } from 'antd-mobile';
-import * as types from '../../../constants/actions/days';
+import * as types from '../../../constants/actions/__tpl__';
 import pureRender from '@utils/pure-render-decorator';
+
 @pureRender
 class Content extends React.Component {
 	constructor(...params) {
 		super(...params);
 	}
 	handleAsync = () => {
-		let url = types.DAYS_ZERO_ASYNC_POST;
+		let url = types.TPL_ZERO_ASYNC_POST;
 		let param = {};
 		let params = {
 			param: param,
@@ -26,7 +28,7 @@ class Content extends React.Component {
 	render() {
 		const { actions, count } = this.props;
 		return (
-			<View>
+			<SafeAreaView>
 				<Text>Chrome下载插件：RemoteDev，可观察redux的数据变化</Text>
 				<Text>&nbsp;</Text>
 				<Text> {count} 次数</Text>
@@ -40,7 +42,7 @@ class Content extends React.Component {
 				<Button
 					onClick={this.handleAsync}
 				>异步+</Button>
-			</View>
+			</SafeAreaView>
 		);
 	}
 }

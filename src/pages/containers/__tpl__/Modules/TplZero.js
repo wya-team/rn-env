@@ -3,28 +3,31 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Button } from 'antd-mobile';
-
-import * as creators from '@actions/days';
-import Content from '@components/Days/Zero/Content';
+import SetTitle from '@common/SetTitle/SetTitle';
+import * as creators from '@actions/__tpl__';
+import Content from '@components/__tpl__/Zero/Content';
 
 class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
 	}
 	render() {
-		const { navigation, daysZero = {}, actions } = this.props;
+		const { navigation, tplZero = {}, actions } = this.props;
 		return (
-			<Content 
-				actions={actions}
-				count={daysZero.count}
-			/>
+			<SetTitle title="00">
+				<Content 
+					actions={actions}
+					count={tplZero.count}
+				/>
+			</SetTitle>
+			
 		);
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		daysZero: state.daysZero
+		tplZero: state.tplZero
 	};
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

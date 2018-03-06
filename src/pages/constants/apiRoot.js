@@ -1,10 +1,10 @@
 import { DEV_WITH_SERVER } from './constants';
+import __tpl__ from './api/__tpl__';
 import home from './api/home';
-import days from './api/days';
 import login from './api/login';
 const API = {
+	...__tpl__,
 	...home,
-	...days,
 	...login
 };
 let baseUrl;

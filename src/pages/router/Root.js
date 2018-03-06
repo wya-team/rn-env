@@ -34,8 +34,8 @@ class Root extends React.Component {
 			await Font.loadAsync({
 				anticon: require('../../assets/fonts/iconfont.ttf'),
 			});
-			const { access_token } = await getItem('access_token') || {};
-			_global.token = access_token;
+			const { token } = await getItem('token') || {};
+			_global.token = token;
 
 			this.setState({ 
 				loaded: true
