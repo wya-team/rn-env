@@ -1,17 +1,111 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { Icon } from 'antd-mobile';
-const BAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+import { Constants } from 'expo';
+const TITLE_BAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const LOLLIPOP = 21;
+let count = 0;
+class SetTitle extends PureComponent{
+	constructor(params) {
+		super(...params);
+	}
+	handleGoBack = () => {
+		this.context.navigation.goBack(null);
+	}
+	render() {
+		const {
+			tag: Tag,
+			style,
+			title,
+			showBack,
+			renderRightView,
+			barProps,
+			showStatusBarPlaceholder,
+			curRouteName,
+			routeName
+		} = this.props;
+		return (
+			<Tag style={[{ flex: 1 }, style.container]}>
+				{ (curRouteName === routeName) && <StatusBar {...barProps} /> }
+				{ (showStatusBarPlaceholder ) && 
+					<View style={[styles.statusBar, style.statusBar]} /> 
+				}
+				{title && (
+					<View style={[styles.titleBar, style.titleBar]}>
+						{showBack && (
+							 <TouchableOpacity
+								style={[styles.backButton, style.backButton]}
+								onPress={this.handleGoBack}
+							>
+								<Text>&#10094;</Text>
+							</TouchableOpacity>
+						)}
+						<View style={[styles.content, style.content]}>
+							{
+								typeof title === 'string' 
+									? (
+										<Text numberOfLines={1} style={[styles.title, style.title]}>
+											{title}
+										</Text>
+									) 
+									: (
+										title
+									)
+							}
+						</View>
+						{ 
+							renderRightView && renderRightView()
+						}
+					</View>
+				)}
+				{this.props.children}
+			</Tag>
 
+		);
+	}
+}
+SetTitle.contextTypes = {
+	navigation: PropTypes.object
+};
+SetTitle.propTypes = {
+	tag: PropTypes.func,
+	style: PropTypes.object,
+	title: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.bool]),
+	showBack: PropTypes.bool,
+	renderRightView: PropTypes.func,
+	barProps: PropTypes.object,
+	showStatusBarPlaceholder: PropTypes.bool,
+	routeName: PropTypes.string.isRequired
+
+};
+SetTitle.defaultProps = {
+	showBack: true,
+	style: {},
+	tag: SafeAreaView,
+	barProps: {
+		barStyle: "dark-content",
+		/**
+		 * 指定状态栏是否透明。
+		 * 设置为true时，应用会在状态栏之下绘制（即所谓“沉浸式”——被状态栏遮住一部分）。
+		 * 常和带有半透明背景色的状态栏搭配使用。
+		 * 实际上无效，我们使用View做管理
+		 * @type {Boolean}
+		 */
+		// translucent: true
+	},
+	showStatusBarPlaceholder: Platform.OS === 'android' ? true : false
+};
 const styles = StyleSheet.create({
-	appbar: {
+	statusBar: {
+		height: Constants.statusBarHeight
+	},
+	titleBar: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		height: BAR_HEIGHT,
-		// marginTop: Platform.OS === 'ios' ? 20 : 0,
+		height: TITLE_BAR_HEIGHT,
+		// marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
 		backgroundColor: '#fff',
 		elevation: 1,
 		shadowColor: 'black',
@@ -27,71 +121,47 @@ const styles = StyleSheet.create({
 				: 0,
 		zIndex: 1,
 	},
-	icon: {
-		color: '#222',
-	},
-
-	button: {
-		height: BAR_HEIGHT,
-		width: BAR_HEIGHT - 8,
+	backButton: {
+		// position: 'absolute',
+		// left: 0,
+		// top: 0,
 		alignItems: 'center',
 		justifyContent: 'center',
+		height: TITLE_BAR_HEIGHT,
+		width: TITLE_BAR_HEIGHT,
 	},
-
 	title: {
 		color: '#222',
 		fontSize: Platform.OS === 'ios' ? 16 : 18,
+		marginLeft: -(TITLE_BAR_HEIGHT / 2)
 	},
-
 	content: {
 		flex: 1,
-		alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+		// alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+		alignItems: 'center',
 		justifyContent: 'center',
 		marginHorizontal: 8,
 	},
 });
 
-class SetTitle extends PureComponent{
-	constructor(params) {
-		super(...params);
+const getCurRouteName = (arr) => {
+	const { index, routes } = arr;
+	if (routes[index].routes && routes[index].routes instanceof Array) {
+		return getCurRouteName(routes[index]);
+	} else {
+		return routes[index];
 	}
-	handleGoBack = () => {
-	  this.context.navigation.goBack(null);
-	};
-	render() {
-		const { style, title } = this.props;
-		return (
-			<SafeAreaView>
-				<View style={[styles.appbar, style]}>
-					<TouchableOpacity
-						borderless
-						style={styles.button}
-						onPress={this.handleGoBack}
-					>
-						<Text>{`<`}</Text>
-					</TouchableOpacity>
-					<View style={styles.content}>
-						{
-							typeof title === 'string' 
-								? (
-									<Text numberOfLines={1} style={styles.title}>
-										{title}
-									</Text>
-								) 
-								: (
-									title
-								)
-						}
-					</View>
-					<View style={styles.button} />
-				</View>
-				{this.props.children}
-			</SafeAreaView>
-
-		);
-	}
-}
-SetTitle.contextTypes = {
-	navigation: PropTypes.object
 };
-export default SetTitle;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		curRouteName: getCurRouteName(state.commonNav).routeName,
+	};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		dispatch
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetTitle);

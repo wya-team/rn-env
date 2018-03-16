@@ -12,7 +12,7 @@ let list = [
 		title: '01 - scrollY',
 		route: 'TplOne'
 	}
-]
+];
 class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
@@ -20,7 +20,7 @@ class Container extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		return (
-			<SetTitle title="TplMain">
+			<SetTitle routeName="TplMain" title="TplMain" routeName="TplMain">
 				{
 					list.map((item, index) => {
 						const { title, route } = item;

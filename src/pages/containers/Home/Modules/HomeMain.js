@@ -3,8 +3,9 @@ import { View, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
-import { SafeAreaView } from 'react-navigation';
+import SetTitle from '@common/SetTitle/SetTitle';
 import * as creators from '@actions/home';
+
 class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
@@ -18,11 +19,11 @@ class Container extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		return (
-			<SafeAreaView>
+			<SetTitle barProps={{ barStyle: 'dark-content' }} routeName="HomeMain">
 				<Button
 					onClick={() => navigation.navigate('TplMain')}
 				>模版页面</Button>
-			</SafeAreaView>
+			</SetTitle>
 		);
 	}
 }
@@ -30,7 +31,7 @@ class Container extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		homeMain: state.homeMain
+		homeMain: state.homeMain,
 	};
 };
 

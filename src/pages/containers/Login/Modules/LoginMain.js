@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as creators from '@actions/login';
 import * as types from '@constants/actions/login';
 import { className } from '@css/root';
-
+import SetTitle from '@common/SetTitle/SetTitle';
 import Content from '@components/Login/Content';
 
 class Container extends React.Component {
@@ -16,9 +16,9 @@ class Container extends React.Component {
 	render() {
 		const { navigation, actions } = this.props;
 		return (
-			<View style={{ ...className("g-w-full g-h-full g-bg-gray g-flex-cc") }}>
+			<SetTitle showStatusBarPlaceholder={false} routeName="LoginMain">
 				<Content navigation={navigation} actions={actions} />
-			</View>
+			</SetTitle>
 		);
 	}
 }

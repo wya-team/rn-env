@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
+import SetTitle from '@common/SetTitle/SetTitle';
 import { SafeAreaView } from 'react-navigation';
 import * as creators from '@actions/mine';
 
@@ -18,13 +19,13 @@ class Container extends React.Component {
 	}
 	render() {
 		return (
-			<SafeAreaView>
+			<SetTitle barProps={{ barStyle: 'light-content' }} routeName="MineMain">
+				<Text>Test22</Text>
 				<Text>Test</Text>
 				<Text>Test</Text>
 				<Text>Test</Text>
 				<Text>Test</Text>
-				<Text>Test</Text>
-			</SafeAreaView>
+			</SetTitle>
 		);
 	}
 }

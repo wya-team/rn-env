@@ -45,7 +45,14 @@ const RouteConfigs = {
 const StackConfig = {
 	initialRouteName: 'TabBar',
 	headerMode: 'none',
-	mode: Platform.OS === 'ios' ? 'card' : 'modal',
+	// mode: Platform.OS === 'ios' ? 'card' : 'modal',
+	mode: 'card',
+	transitionConfig: () => {
+		// navigator水平切换
+		return {
+			isModal: false
+		};
+	}
 };
 // 路由堆栈
 export const Stacks = StackNavigator(RouteConfigs, StackConfig);

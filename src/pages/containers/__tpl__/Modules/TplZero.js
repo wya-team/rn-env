@@ -14,7 +14,7 @@ class Container extends React.Component {
 	render() {
 		const { navigation, tplZero = {}, actions } = this.props;
 		return (
-			<SetTitle title="00">
+			<SetTitle title="00" routeName="TplZero">
 				<Content 
 					actions={actions}
 					count={tplZero.count}
