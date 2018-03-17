@@ -12,10 +12,20 @@ import { AsyncStorage, DeviceStorage } from 'react-native';
 import { _global } from '../router/_global';
 /**
  * 获取
+ * 安卓拿不到值，不会继续reject
  * @return Promise
  */
 export const getItem = (key) => {
-	return AsyncStorage.getItem(`${key}@${_global.version}`).then(res => JSON.parse(res));
+	return new Promise((resolve, reject) => {
+		let timer = setTimeout(() => resolve(null), 100);
+		AsyncStorage.getItem(`${key}@${_global.version}`)
+			.then(res => {
+				timer && clearTimeout(timer);
+				return resolve(JSON.parse(res));
+			})
+			.catch(res => resolve(null));
+	});
+	
 };
 /**
  * 保存
