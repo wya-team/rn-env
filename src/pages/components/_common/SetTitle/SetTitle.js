@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { Constants } from 'expo';
-const TITLE_BAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+
+import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
+
+const TITLE_BAR_HEIGHT = 44; // Platform.OS === 'ios' ? 44 : 56
 const LOLLIPOP = 21;
-let count = 0;
 class SetTitle extends PureComponent{
 	constructor(params) {
 		super(...params);
@@ -26,11 +28,22 @@ class SetTitle extends PureComponent{
 			curRouteName,
 			routeName
 		} = this.props;
+		const {
+			hidden,
+			barStyle
+		} = barProps;
+		console.log(curRouteName === routeName, routeName);
 		return (
-			<Tag style={[{ flex: 1 }, style.container]}>
+			<Tag style={[styles.container, style.container]}>
 				{ (curRouteName === routeName) && <StatusBar {...barProps} /> }
 				{ (showStatusBarPlaceholder ) && 
-					<View style={[styles.statusBar, style.statusBar]} /> 
+					<View 
+						style={[
+							styles.statusBar, 
+							{ backgroundColor: `${barStyle === 'light-content' ? `rgba(0, 0, 0, 0.5)` : `white`}` }, 
+							style.statusBar
+						]} 
+					/> 
 				}
 				{title && (
 					<View style={[styles.titleBar, style.titleBar]}>
@@ -39,7 +52,7 @@ class SetTitle extends PureComponent{
 								style={[styles.backButton, style.backButton]}
 								onPress={this.handleGoBack}
 							>
-								<Text>&#10094;</Text>
+								<Text style={[styles.backIcon, style.backIcon]}>&#10094;</Text>
 							</TouchableOpacity>
 						)}
 						<View style={[styles.content, style.content]}>
@@ -83,7 +96,10 @@ SetTitle.propTypes = {
 SetTitle.defaultProps = {
 	showBack: true,
 	style: {},
-	tag: SafeAreaView,
+	/**
+	 * 	更多的自定义状态了背景，暂时不用SafeAreaView
+	 */
+	tag: View,
 	barProps: {
 		barStyle: "dark-content",
 		/**
@@ -93,11 +109,17 @@ SetTitle.defaultProps = {
 		 * 实际上无效，我们使用View做管理
 		 * @type {Boolean}
 		 */
-		// translucent: true
+		// translucent: true,
+		// hidden: true
 	},
-	showStatusBarPlaceholder: Platform.OS === 'android' ? true : false
+	showStatusBarPlaceholder: true
 };
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		// 背景颜色
+		// backgroundColor: "white"
+	},
 	statusBar: {
 		height: Constants.statusBarHeight
 	},
@@ -122,25 +144,24 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 	},
 	backButton: {
-		// position: 'absolute',
-		// left: 0,
-		// top: 0,
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: TITLE_BAR_HEIGHT,
-		width: TITLE_BAR_HEIGHT,
+		width: TITLE_BAR_HEIGHT / 1.5
+	},
+	backIcon: {
+		fontSize: 32 * WIDTH_SCALE,
 	},
 	title: {
 		color: '#222',
-		fontSize: Platform.OS === 'ios' ? 16 : 18,
-		marginLeft: -(TITLE_BAR_HEIGHT / 2)
+		fontSize: 32 * WIDTH_SCALE,
+		marginLeft: -(TITLE_BAR_HEIGHT / 3 )
 	},
 	content: {
 		flex: 1,
 		// alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
 		alignItems: 'center',
-		justifyContent: 'center',
-		marginHorizontal: 8,
+		justifyContent: 'center'
 	},
 });
 
