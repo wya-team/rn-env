@@ -11,6 +11,10 @@ let list = [
 	{
 		title: '01 - scrollY',
 		route: 'TplOne'
+	},
+	{
+		title: '02 - TextInput/ScrollView',
+		route: 'TplTwo'
 	}
 ];
 class Container extends React.Component {
@@ -20,7 +24,7 @@ class Container extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		return (
-			<SetTitle routeName="TplMain" title="TplMain" routeName="TplMain">
+			<SetTitle title="TplMain" routeName="TplMain">
 				{
 					list.map((item, index) => {
 						const { title, route } = item;

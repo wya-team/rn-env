@@ -32,7 +32,7 @@ class SetTitle extends PureComponent{
 			hidden,
 			barStyle
 		} = barProps;
-		console.log(curRouteName === routeName, routeName);
+		// console.log(curRouteName === routeName, routeName);
 		return (
 			<Tag style={[styles.container, style.container]}>
 				{ (curRouteName === routeName) && <StatusBar {...barProps} /> }

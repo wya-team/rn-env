@@ -6,7 +6,7 @@ import { Button } from 'antd-mobile';
 import SetTitle from '@common/SetTitle/SetTitle';
 import { SafeAreaView } from 'react-navigation';
 import * as creators from '@actions/mine';
-
+import Content from '@components/__tpl__/Two/Content';
 class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
@@ -25,6 +25,7 @@ class Container extends React.Component {
 				<Text>Test</Text>
 				<Text>Test</Text>
 				<Text>Test</Text>
+				<Content routeName="MineMain"/>
 			</SetTitle>
 		);
 	}
