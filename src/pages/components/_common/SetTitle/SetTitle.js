@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 	},
 	backButton: {
+		zIndex: 2,
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: TITLE_BAR_HEIGHT,
@@ -155,11 +156,15 @@ const styles = StyleSheet.create({
 	title: {
 		color: '#222',
 		fontSize: 32 * WIDTH_SCALE,
-		marginLeft: -(TITLE_BAR_HEIGHT / 3 )
 	},
 	content: {
 		flex: 1,
-		// alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+		position: 'absolute',
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0,
+		zIndex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
