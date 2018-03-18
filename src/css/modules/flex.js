@@ -83,8 +83,14 @@ export const flex = {
 	'g-1of3': {
 		flexBasis: '33.3333%'
 	},
+	'g-2of3': {
+		flexBasis: '66.6666%'
+	},
 	'g-1of4': {
 		flexBasis: '25%'
+	},
+	'g-3of4': {
+		flexBasis: '75%'
 	},
 	'g-flex-cc': {
 		display: 'flex',

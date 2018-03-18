@@ -18,7 +18,7 @@ export const color = {
 		color: '#fea90e',
 	},
 	'g-orange': {
-		color: '#f96202',
+		color: '#fe9053',
 	},
 	'g-light-blue': {
 		color: '#38abfb'
@@ -51,7 +51,7 @@ export const color = {
 		backgroundColor: '#8e8e8e'
 	},
 	'g-bg-light': {
-		backgroundColor: '#fefefe'
+		backgroundColor: '#EFEFF4'
 	},
 	'g-bg-middle-gray': {
 		backgroundColor: '#fbfbfb'
@@ -69,10 +69,13 @@ export const color = {
 		backgroundColor: '#585ad1'
 	},
 	'g-bg-orange': {
-		backgroundColor: '#f96202',
+		backgroundColor: '#fe9053',
 	},
 	'g-bg-green': {
 		backgroundColor: '#50c463',
+	},
+	'g-bg-red': {
+		backgroundColor: '#ff323e'
 	},
 	'g-bg-trans': {
 		backgroundColor: 'transparent'

@@ -219,6 +219,10 @@ export const layout = {
 		width: 140 * WIDTH_SCALE,
 		height: 140 * WIDTH_SCALE,
 	},
+	'g-img-120': {
+		width: 120 * WIDTH_SCALE,
+		height: 120 * WIDTH_SCALE,
+	},
 	'g-img-100': {
 		width: 100 * WIDTH_SCALE,
 		height: 100 * WIDTH_SCALE,
@@ -231,7 +235,14 @@ export const layout = {
 		width: 60 * WIDTH_SCALE,
 		height: 60 * WIDTH_SCALE,
 	},
-	'g-br-circle-60': {
+	'g-br-10': {
+		borderRadius: 10 * WIDTH_SCALE
+	},
+	'g-br-20': {
+		borderRadius: 20 * WIDTH_SCALE
+	},
+	'g-br-30': {
 		borderRadius: 30 * WIDTH_SCALE
 	}
+
 };

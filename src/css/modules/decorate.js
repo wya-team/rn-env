@@ -20,6 +20,10 @@ export const decorate = {
 		borderBottomWidth: 1,
 		borderBottomColor: '#f1f1f1',
 	},
+	'g-br-light': {
+		borderRightWidth: 1,
+		borderRightColor: '#f1f1f1',
+	},
 	'g-bt-light': {
 		borderTopWidth: 2 * StyleSheet.hairlineWidth,
 		borderTopColor: '#ddd',

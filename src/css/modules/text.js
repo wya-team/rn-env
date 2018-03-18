@@ -64,5 +64,14 @@ export const text = {
 	},
 	'g-lh-30': {
 		lineHeight: 30 * WIDTH_SCALE
+	},
+	'g-lh-40': {
+		lineHeight: 40 * WIDTH_SCALE
+	},
+	'g-lh-50': {
+		lineHeight: 50 * WIDTH_SCALE
+	},
+	'g-lh-60': {
+		lineHeight: 60 * WIDTH_SCALE
 	}
 };
