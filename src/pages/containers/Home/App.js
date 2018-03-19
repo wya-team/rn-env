@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeMain from './Modules/HomeMain';
-import { Icon } from 'antd-mobile';
+import Icon from '@common/Icon/Icon';
 export const homeTabConfig = {
 	HomeMain: { 
 		screen: HomeMain,
@@ -11,7 +11,7 @@ export const homeTabConfig = {
 				const { tintColor } = props;
 				return (
 					<Icon 
-						type={`\ue601`} 
+						type={`home`} 
 						size={20} 
 						color={tintColor}
 					/>

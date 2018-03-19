@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import Icon from '@common/Icon/Icon';
 import { Constants } from 'expo';
 
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
-
 const TITLE_BAR_HEIGHT = 44; // Platform.OS === 'ios' ? 44 : 56
 const LOLLIPOP = 21;
 class SetTitle extends PureComponent{
@@ -52,7 +52,13 @@ class SetTitle extends PureComponent{
 								style={[styles.backButton, style.backButton]}
 								onPress={this.handleGoBack}
 							>
-								<Text style={[styles.backIcon, style.backIcon]}>&#10094;</Text>
+								{
+									<Text >&#10094;</Text>
+								}
+								{
+									// 二选一
+									// <Icon type="left" styleIcon={[styles.backIcon, style.backIcon]} />
+								}
 							</TouchableOpacity>
 						)}
 						<View style={[styles.content, style.content]}>

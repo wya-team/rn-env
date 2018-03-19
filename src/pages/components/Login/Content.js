@@ -85,14 +85,14 @@ class Content extends Component {
 	render() {
 		const { getFieldProps, getFieldError } = this.props.form;
 		return (
-			<View style={{ ...className("g-w-full g-h-full g-bg-blue g-flex-cc") }}>
+			<View style={className("g-w-full g-h-full g-bg-blue g-flex-cc")}>
 				<InputItem
 					{...getFieldProps('name')}
 					value={this.state.name}
 					type={"text"}
 					placeholder="用户名"
 					onChange={this.handleMobile}
-					style={[styles.inputTop, styles.inputCommon, { ...className("g-pd-h-20") }]}
+					style={[styles.inputTop, styles.inputCommon, className("g-pd-h-20")]}
 				>
 					<Icon
 						type={'\ue632'}
@@ -106,7 +106,7 @@ class Content extends Component {
 					value={this.state.password}
 					placeholder="密码"
 					onChange={this.handlePassword}
-					style={[styles.inputBottom, styles.inputCommon, { ...className("g-pd-h-20") }]}
+					style={[styles.inputBottom, styles.inputCommon, className("g-pd-h-20")]}
 				>
 					<Icon
 						type={'\ue606'}
@@ -115,10 +115,10 @@ class Content extends Component {
 					/>
 				</InputItem>
 				<TouchableOpacity
-					style={[styles.buttonLogin, { ...className("g-bg-purple g-m-v-30 g-flex-cc") }]}
+					style={[styles.buttonLogin, className("g-bg-purple g-m-v-30 g-flex-cc")]}
 					onPress={this.handleLogin}
 				>
-					<Text style={{ ...className("g-white g-ta-c g-fs-30") }}>进入课堂</Text>
+					<Text style={className("g-white g-ta-c g-fs-30")}>进入课堂</Text>
 				</TouchableOpacity>
 			</View>
 		);

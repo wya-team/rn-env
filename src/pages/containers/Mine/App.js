@@ -1,6 +1,6 @@
 import React from 'react';
 import MineMain from './Modules/MineMain';
-import { Icon } from 'antd-mobile';
+import Icon from '@common/Icon/Icon';
 export const mineTabConfig = {
 	MineMain: { 
 		screen: MineMain,
@@ -11,7 +11,7 @@ export const mineTabConfig = {
 				const { tintColor } = props;
 				return (
 					<Icon 
-						type={`\ue600`} 
+						type={`user`} 
 						size={20} 
 						color={tintColor}
 					/>

@@ -32,7 +32,7 @@ class Root extends React.Component {
 		try {
 			// 字体库 如：fontFamily: 'anticon'
 			await Font.loadAsync({
-				anticon: require('../../assets/fonts/anticon.ttf'),
+				// anticon: require('../../assets/fonts/anticon.ttf'),
 				iconfont: require('../../assets/fonts/iconfont.ttf'),
 			});
 			const { token } = await getItem('token') || {};
