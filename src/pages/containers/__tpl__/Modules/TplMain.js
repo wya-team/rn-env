@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Button } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import SetTitle from '@common/SetTitle/SetTitle';
 
 let list = [
@@ -21,10 +21,18 @@ class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
 	}
+	handleGoBack = () => {
+		Toast.info('2秒后返回, onBackBefore');
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve();
+			}, 2000);
+		});
+	}
 	render() {
 		const { navigation } = this.props;
 		return (
-			<SetTitle title="TplMain" routeName="TplMain">
+			<SetTitle title="TplMain" routeName="TplMain" onBackBefore={this.handleGoBack}>
 				{
 					list.map((item, index) => {
 						const { title, route } = item;

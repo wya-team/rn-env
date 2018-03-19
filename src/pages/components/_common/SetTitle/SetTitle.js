@@ -14,7 +14,21 @@ class SetTitle extends PureComponent{
 		super(...params);
 	}
 	handleGoBack = () => {
-		this.context.navigation.goBack(null);
+		let { onBackBefore } = this.props;
+
+		const before = onBackBefore && onBackBefore();
+
+		if (before && typeof before === 'object' && before.then) {
+			before.then((isBack = true) => {
+				
+				isBack && this.context.navigation.goBack(null);
+
+			}).catch(e => {
+				console.error(e);
+			});
+		} else if (before === true) {
+			this.context.navigation.goBack(null);
+		}
 	}
 	render() {
 		const {
@@ -97,8 +111,7 @@ SetTitle.propTypes = {
 	renderRightView: PropTypes.func,
 	barProps: PropTypes.object,
 	showStatusBarPlaceholder: PropTypes.bool,
-	routeName: PropTypes.string.isRequired
-
+	onBackBefore: PropTypes.func
 };
 SetTitle.defaultProps = {
 	showBack: true,
@@ -119,7 +132,8 @@ SetTitle.defaultProps = {
 		// translucent: true,
 		// hidden: true
 	},
-	showStatusBarPlaceholder: true
+	showStatusBarPlaceholder: true,
+	onBackBefore: () => true
 };
 const styles = StyleSheet.create({
 	container: {
