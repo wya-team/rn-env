@@ -4,7 +4,8 @@ import { NavigationActions } from 'react-navigation';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import * as types from '@constants/actions/login';
 import { createForm } from 'rc-form';
-import { InputItem, Icon, Toast } from 'antd-mobile';
+import { InputItem, Toast } from 'antd-mobile';
+import Icon from '@common/Icon/Icon';
 import { className } from '@css/root';
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
 
@@ -95,7 +96,7 @@ class Content extends Component {
 					style={[styles.inputTop, styles.inputCommon, className("g-pd-h-20")]}
 				>
 					<Icon
-						type={'\ue632'}
+						type={'user'}
 						size={20}
 						color={'#000'}
 					/>
@@ -109,7 +110,7 @@ class Content extends Component {
 					style={[styles.inputBottom, styles.inputCommon, className("g-pd-h-20")]}
 				>
 					<Icon
-						type={'\ue606'}
+						type={'user'}
 						size={20}
 						color={'#000'}
 					/>

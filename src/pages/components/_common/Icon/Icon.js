@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import iconObj from '@constants/iconfont';
-
 class Icon extends Component {
 	constructor(props) {
 		super(props);
@@ -30,6 +29,8 @@ class Icon extends Component {
 
 
 Icon.propTypes = {
+	style: PropTypes.object,
+	styleIcon: PropTypes.object,
 	color: PropTypes.string,
 	size: PropTypes.number,
 	type: PropTypes.string,

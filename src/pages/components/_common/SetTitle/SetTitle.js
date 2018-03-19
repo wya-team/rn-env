@@ -74,7 +74,8 @@ class SetTitle extends PureComponent{
 									)
 							}
 						</View>
-						{ 
+						<View style={{ flex: 1 }} />
+						{
 							renderRightView && renderRightView()
 						}
 					</View>
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: "white"
 	},
 	statusBar: {
-		height: Constants.statusBarHeight
+		height: Constants.statusBarHeight,
 	},
 	titleBar: {
 		flexDirection: 'row',
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 	},
 	backButton: {
-		zIndex: 2,
+		zIndex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: TITLE_BAR_HEIGHT,
@@ -170,13 +171,13 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		left: 0,
 		right: 0,
-		zIndex: 1,
+		zIndex: 0, // 待定
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
 });
 
-const getCurRouteName = (arr) => {
+export const getCurRouteName = (arr) => {
 	const { index, routes } = arr;
 	if (routes[index].routes && routes[index].routes instanceof Array) {
 		return getCurRouteName(routes[index]);

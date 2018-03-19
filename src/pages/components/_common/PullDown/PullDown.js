@@ -96,7 +96,6 @@ class PullDown extends Component {
 						{this.props.children[1]}
 					</SafeAreaView>
 				</Animated.ScrollView>
-				<StatusBar barStyle="light-content" />
 				<Animated.View
 					style={[styles.statusBarUnderlay, { opacity: underlayOpacity }]}
 				/>

@@ -11,7 +11,11 @@ class Container extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		return (
-			<SetTitle tag={View} showStatusBarPlaceholder={false} routeName="TplOne">
+			<SetTitle 
+				showStatusBarPlaceholder={false} 
+				routeName="TplOne" 
+				barProps={{ barStyle: "light-content" }}
+			>
 				<Content />
 			</SetTitle>
 		);
