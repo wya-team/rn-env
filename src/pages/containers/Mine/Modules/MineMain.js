@@ -4,9 +4,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
 import SetTitle from '@common/SetTitle/SetTitle';
+import Keyboard from '@common/Keyboard/Keyboard';
+
 import { SafeAreaView } from 'react-navigation';
 import * as creators from '@actions/mine';
 import Content from '@components/__tpl__/Two/Content';
+import { TAB_BAR_HEIGHT } from '@constants/constants';
+
 class Container extends React.Component {
 	constructor(...params) {
 		super(...params);
@@ -19,13 +23,12 @@ class Container extends React.Component {
 	}
 	render() {
 		return (
-			<SetTitle barProps={{ barStyle: 'light-content' }} routeName="MineMain">
-				<Text>Test22</Text>
-				<Text>Test</Text>
-				<Text>Test</Text>
-				<Text>Test</Text>
-				<Text>Test</Text>
+			<SetTitle 
+				barProps={{ barStyle: 'light-content' }}
+				routeName="MineMain" 
+			>
 				<Content routeName="MineMain"/>
+				<Keyboard offset={-TAB_BAR_HEIGHT} />
 			</SetTitle>
 		);
 	}

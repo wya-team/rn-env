@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, ScrollView, Text } from 'react-native';
 class Example extends Component {
 	componentWillMount () {
 	}
@@ -7,7 +7,45 @@ class Example extends Component {
 
 	render() {
 		return (
-			<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+			<ScrollView style={{ flex: 1 }}>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
+				<Text>2</Text>
 				<Text>2</Text>
 				<Text>2</Text>
 				<Text>2</Text>
@@ -18,7 +56,7 @@ class Example extends Component {
 					style={{ width: 200, backgroundColor: 'red' }}
 					// onSubmitEditing={Keyboard.dismiss}
 				/>
-			</View>
+			</ScrollView>
 		);
 	}
 }

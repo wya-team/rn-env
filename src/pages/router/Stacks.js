@@ -1,5 +1,6 @@
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
+import { TAB_BAR_HEIGHT } from '@constants/constants';
 // config
 import { homeConfig, homeTabConfig } from '../containers/Home/App';
 import { mineConfig, mineTabConfig } from '../containers/Mine/App';
@@ -21,7 +22,8 @@ const tabConfig = {
 				inactiveTintColor: '#999999',
 				showIcon: true,
 				style: {
-					backgroundColor: '#fff'
+					backgroundColor: '#fff',
+					height: TAB_BAR_HEIGHT,
 				},
 				indicatorStyle: {
 					opacity: 0
