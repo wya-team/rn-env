@@ -5,7 +5,7 @@ import api from '../middleware/api';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 const config = {
-	key: 'primary',
+	key: 'root',
 	version: "1.0.0",
 	storage
 };

@@ -17,5 +17,5 @@ export const DEV_WITH_SERVER = !1;
 /**
  * Tab Bar的高度
  */
-export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 55 : 54;
+export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 55 : 60;
 

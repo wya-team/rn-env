@@ -10,11 +10,16 @@
 		"sdkVersion": "25.0.0",
 		"entryPoint": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
 		"ios": {
-			"bundleIdentifier": "com.deot.rn"
+			"bundleIdentifier": "com.deot.rn",
+			"loadJSInBackgroundExperimental": true
 		},
 		"android": {
 			"package": "com.deot.rn"
 		},
+		"assetBundlePatterns": [
+			"src/assets/images/*",
+			"src/assets/fonts/*",
+		],
 		"splash": {
 			"image": "./src/assets/images/splash.png"
 		}

@@ -16,6 +16,7 @@ const tabConfig = {
 		},
 		{
 			lazy: true, // 控制tab模块是否都一开始加载
+			initialRouteName: 'MineMain',
 			tabBarPosition: 'bottom',
 			tabBarOptions: {
 				activeTintColor: '#3e9ce9',

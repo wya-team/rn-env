@@ -9,6 +9,7 @@ import Keyboard from '@common/Keyboard/Keyboard';
 import { SafeAreaView } from 'react-navigation';
 import * as creators from '@actions/mine';
 import Content from '@components/__tpl__/Two/Content';
+import PullRefresh from '@common/PullRefresh/examples/Basic';
 import { TAB_BAR_HEIGHT } from '@constants/constants';
 
 class Container extends React.Component {
@@ -27,8 +28,7 @@ class Container extends React.Component {
 				barProps={{ barStyle: 'light-content' }}
 				routeName="MineMain" 
 			>
-				<Content routeName="MineMain"/>
-				<Keyboard offset={-TAB_BAR_HEIGHT} />
+				<PullRefresh />
 			</SetTitle>
 		);
 	}
