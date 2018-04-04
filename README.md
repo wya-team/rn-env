@@ -7,12 +7,21 @@
 ```shell
 # 环境
 npm install -g create-react-native-app
-npm run start
 
 # 数据模拟
 cd src/mock && npm start
 ```
  
+## 下载
+
+```shell
+npm install wya-toolkit -g 
+wya init
+
+# 或者
+git clone **
+```
+
 如果重新设置[路径映射](https://github.com/tleunen/babel-plugin-module-resolver), 你需要强制清理编译缓存`npm start -- --reset-cache`
 ## 问题处理
 - 真机模式，要在电脑上debugger
@@ -31,7 +40,7 @@ adb reverse tcp:19001 tcp:19001
 - `::ffff:127.0.0.1 - - [22/Jan/2018:09:10:17 +0000] "GET /debug HTTP/1.1" 404 18 "-" "-"`
 
 ```shell
-# 暂时不知道具体原因, 终端先执行以下命令
+# 更新你的 `react-native-scripts@1.11.1`, 终端先执行以下命令
 export http_proxy="http://127.0.0.1"
 ```
 
