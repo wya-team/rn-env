@@ -44,3 +44,8 @@ adb reverse tcp:19001 tcp:19001
 export http_proxy="http://127.0.0.1"
 ```
 
+
+## 注意事项
+
+- 避免打印一些关于`react native`的变量
+
