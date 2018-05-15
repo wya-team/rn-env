@@ -9,5 +9,6 @@ export const _global = {
 				delete this.APIS[i];
 			}
 		}
-	}
+	},
+	dispatch: () => {}
 };

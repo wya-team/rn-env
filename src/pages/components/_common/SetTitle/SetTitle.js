@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, withNavigationFocus } from 'react-navigation';
 import Icon from '@common/Icon/Icon';
 import { Constants } from 'expo';
-
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
 const TITLE_BAR_HEIGHT = 44; // Platform.OS === 'ios' ? 44 : 56
 const LOLLIPOP = 21;
+@withNavigationFocus
 class SetTitle extends PureComponent{
 	constructor(params) {
 		super(...params);
@@ -20,14 +20,13 @@ class SetTitle extends PureComponent{
 
 		if (before && typeof before === 'object' && before.then) {
 			before.then((isBack = true) => {
-				
-				isBack && this.context.navigation.goBack(null);
 
+				isBack && this.props.navigation.goBack(null);
 			}).catch(e => {
 				console.error(e);
 			});
 		} else if (before === true) {
-			this.context.navigation.goBack(null);
+			this.props.navigation.goBack(null);
 		}
 	}
 	render() {
@@ -50,14 +49,14 @@ class SetTitle extends PureComponent{
 		return (
 			<Tag style={[styles.container, style.container]}>
 				{ (curRouteName === routeName) && <StatusBar {...barProps} /> }
-				{ (showStatusBarPlaceholder ) && 
-					<View 
+				{ (showStatusBarPlaceholder ) &&
+					<View
 						style={[
-							styles.statusBar, 
-							{ backgroundColor: `${barStyle === 'light-content' ? `rgba(0, 0, 0, 0.5)` : `white`}` }, 
+							styles.statusBar,
+							{ backgroundColor: `${barStyle === 'light-content' ? `rgba(0, 0, 0, 0.5)` : `white`}` },
 							style.statusBar
-						]} 
-					/> 
+						]}
+					/>
 				}
 				{title && (
 					<View style={[styles.titleBar, style.titleBar]}>
@@ -77,12 +76,12 @@ class SetTitle extends PureComponent{
 						)}
 						<View style={[styles.content, style.content]}>
 							{
-								typeof title === 'string' 
+								typeof title === 'string'
 									? (
 										<Text numberOfLines={1} style={[styles.title, style.title]}>
 											{title}
 										</Text>
-									) 
+									)
 									: (
 										title
 									)
@@ -100,9 +99,6 @@ class SetTitle extends PureComponent{
 		);
 	}
 }
-SetTitle.contextTypes = {
-	navigation: PropTypes.object
-};
 SetTitle.propTypes = {
 	tag: PropTypes.func,
 	style: PropTypes.object,

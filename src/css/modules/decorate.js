@@ -12,21 +12,21 @@ export const decorate = {
 	'g-bd-c': {
 		borderRadius: 35 * WIDTH_SCALE
 	},
-	'g-bt-light': {
+	'g-bt': {
 		borderTopWidth: 2 * StyleSheet.hairlineWidth,
 		borderTopColor: '#f1f1f1',
 	},
-	'g-bb-light': {
+	'g-bb': {
 		borderBottomWidth: 1,
 		borderBottomColor: '#f1f1f1',
 	},
-	'g-br-light': {
+	'g-br': {
 		borderRightWidth: 1,
 		borderRightColor: '#f1f1f1',
 	},
-	'g-bt-light': {
+	'g-bt': {
 		borderTopWidth: 2 * StyleSheet.hairlineWidth,
-		borderTopColor: '#ddd',
+		borderTopColor: '#f1f1f1',
 	},
 	'g-b-line-gray': {
 		display: 'flex',

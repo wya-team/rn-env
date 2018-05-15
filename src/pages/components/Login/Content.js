@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import * as types from '@constants/actions/login';
 import { createForm } from 'rc-form';
@@ -66,7 +66,7 @@ class Content extends Component {
 					token: res.data.token,
 				});
 				try {
-					const resetAction = NavigationActions.reset({
+					const resetAction = StackActions.reset({
 						index: 0,
 						actions: [
 							NavigationActions.navigate({ routeName: 'TabBar' }),

@@ -44,22 +44,22 @@ export const text = {
 	'g-fs-70': {
 		fontSize: 70 * WIDTH_SCALE
 	},
-	'g-ta-l': {
+	'g-tl': {
 		textAlign: 'left'
 	},
-	'g-ta-c': {
+	'g-tc': {
 		textAlign: 'center'
 	},
-	'g-ta-r': {
+	'g-tr': {
 		textAlign: 'right'
 	},
-	'g-ta-v-t': {
+	'g-tv-t': {
 		textAlignVertical: 'top'
 	},
-	'g-ta-v-c': {
+	'g-tv-c': {
 		textAlignVertical: 'center'
 	},
-	'g-ta-v-b': {
+	'g-tv-b': {
 		textAlignVertical: 'bottom'
 	},
 	'g-lh-30': {

@@ -1,5 +1,5 @@
 import { Toast } from 'antd-mobile';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { setItem, getItem, delItem } from './utils';
 import { _global } from '../router/_global';
 import { _navigation } from '../router/Router';
@@ -19,20 +19,20 @@ const otherCb = (res, successCb, errorCb) => {
 	const now = new Date;
 	if (now - timer < 500) { // 500 毫秒以内，只执行第一次
 		return;
-	} 
+	}
 	timer = now;
 	try {
 		switch (status) {
 			case -1: // 代表退出登录
 				_global.token = null;
 				delItem(`token`);
-				const resetAction = NavigationActions.reset({
+				const resetAction = StackActions.reset({
 					index: 0,
 					actions: [
 						NavigationActions.navigate({ routeName: 'LoginMain' }),
 					],
 				});
-				_navigation.dispatch(resetAction);
+				_global.dispatch(resetAction);
 				return;
 			default:
 				return;
@@ -40,7 +40,7 @@ const otherCb = (res, successCb, errorCb) => {
 	} catch (e) {
 		console.log('otherCb', e);
 	}
-	
+
 
 };
 const setUrlParams = (opts, token) => {
@@ -69,24 +69,31 @@ const opts = {
  * @return {type}
  */
 const HotPromise = Promise;
-const ajax = _opts => {
+
+export const ajax =  (_opts) => {
+	// 配置；
+	_opts = {
+		...opts,
+		..._opts
+	};
+
 	let xhr;
 	HotPromise.prototype.cancel = () => {
 		xhr instanceof XMLHttpRequest && (
 			xhr.__ABORTED__ = true,
-			xhr.abort(), 
-			xhr = null, 
+			xhr.abort(),
+			xhr = null,
 			console.log(`XMLHttpRequest Abort`)
 		);
 	};
-	return new HotPromise( async (resolve, reject) => {
+	return new HotPromise(async (resolve, reject) => {
 		/**
 		 * @param  {String} url 服务地址
 		 * @param  {Object} param 参数
 		 * @param  {Object} type 请求类型
-		 * @param  {Func} uploadProgress 上传回调
+		 * @param  {Func} onProgress 上传回调
 		 * @param  {Bool} noLoading 不执行loadFn
-		 * @param  {Str} requestType 请求类型 'json' | 'form-data'
+		 * @param  {Str} requestType 请求类型 'json' | 'form-data' | 'form-data:json'
 		 * @param  {Str} tipMsg 提示文字
 		 */
 		const { onBefore, onAfter } = _opts;
@@ -97,22 +104,22 @@ const ajax = _opts => {
 			} catch (e) {
 				console.log(e);
 			}
-			
+
 		}
-		// -- end -- 
+		// -- end --
 		let {
 			url,
 			param,
 			type = 'GET',
 			localData,
-			uploadProgress,
+			onProgress,
 			noLoading = false,
 			requestType,
-			tipMsg
+			tipMsg,
+			headers,
+			async = true,
+			restful = false
 		} = _opts;
-		let messageError = '网络不稳定，请稍后重试';
-		let method = type.toUpperCase(); // 默认转化为大写
-		let isJson = requestType === 'json';
 		if (!url && !localData) {
 			console.error('请求地址不存在');
 			reject({
@@ -120,8 +127,21 @@ const ajax = _opts => {
 			});
 			return;
 		}
-		!noLoading && loadingFn && loadingFn(tipMsg);
+
+		let messageError = '网络不稳定，请稍后重试';
 		let cgiSt = Date.now();
+		let method = type.toUpperCase(); // 默认转化为大写
+		let isJson = requestType === 'json';
+		let isFormDataJson = requestType === 'form-data:json';
+
+		// restful
+		if (restful && method !== 'POST' && param && param.id) {
+			let urlArr = url.split('?');
+			url = `${urlArr[0]}/${param.id}${urlArr[1] ? `?${urlArr[1]}` : ''}`;
+			delete param['id'];
+		}
+
+		!noLoading && !localData && loadingFn && loadingFn(tipMsg);
 		let onDataReturn = async (response) => {
 			if (onAfter && typeof onAfter === 'function') {
 				try {
@@ -129,14 +149,31 @@ const ajax = _opts => {
 				} catch (e) {
 					return;
 				}
-				
-			}
 
+			}
 			if (setCb) {
 				let isExit = setCb(response);
 				if (isExit) return;
 			}
-			// 正常流程
+			// 图片上传时候，调用外部，不太一样
+			if (response.state) {
+				if (response.state === 'SUCCESS') {
+					resolve({
+						status: 1,
+						data: {
+							...response
+						}
+					});
+				} else {
+					reject({
+						msg: response.state,
+						...response
+					});
+				}
+				return;
+			}
+
+			// 正常业务流程
 			switch (response.status) {
 				case 1:
 				case true:
@@ -158,20 +195,16 @@ const ajax = _opts => {
 		 * 如果本地已经从别的地方获取到数据，就不用请求了
 		 */
 		if (localData) {
-			!noLoading && loadedFn && loadedFn();
+			!noLoading && !localData && loadedFn && loadedFn();
 			onDataReturn(localData);
 			return;
 		}
-		/**
-		 * 创建服务
-		 */
+		// 创建服务
 		xhr = new XMLHttpRequest();
 		try {
 			xhr.onreadystatechange = () => {
-				console.log(xhr);
 				if (xhr.readyState == 4) {
-
-					!noLoading && loadedFn && loadedFn(noLoading);
+					!noLoading && !localData && loadedFn && loadedFn(noLoading);
 					if (xhr.status >= 200 && xhr.status < 300) {
 						// 可以加上try-catch
 						try {
@@ -185,6 +218,7 @@ const ajax = _opts => {
 						}
 					} else {
 						if (xhr.status === 0 && xhr.__ABORTED__ === true){
+							// 主动取消
 							return;
 						}
 						reject({
@@ -208,16 +242,36 @@ const ajax = _opts => {
 			}
 
 			if (method === 'FORM') {
-				let formData = new FormData();　　　　
-				formData.append('file', param['file']);　　　　
-				// formData.append('bkn[]', bkn);
+				let formData = new FormData();
+
+				// 参数
+				if (param.data) {
+					Object.keys(param.data).map(key => {
+						formData.append(key, param.data[key]);
+					});
+				}
+				let fileType = Object.prototype.toString.call(param['file']);
+				let name = undefined;
+				if (fileType === '[object Blob]') {
+					name = param['file'].name || name;
+				}
+				// 文件　　
+				formData.append(param['filename'] || 'Filedata', param['file'], name);
+
 				xhr.upload.onprogress = (e) => {
-					if (e.lengthComputable) {
-						uploadProgress && uploadProgress(e.loaded, e.total);
+					// e.lengthComputable
+					if (e.total > 0) {
+						e._percent = e.loaded / e.total * 100;
+						e.percent = (e._percent).toFixed(2);
 					}
+					onProgress && onProgress(e);
 				};
 				xhr.open('POST', url);
-				xhr.withCredentials = true;　　　　
+				xhr.withCredentials = true;
+
+				xhr.setRequestHeader(
+					'X-Requested-With', 'XMLHttpRequest'
+				);
 				xhr.send(formData);
 			} else if (method === 'JSONP') {
 				method = 'GET';
@@ -239,13 +293,19 @@ const ajax = _opts => {
 				script.src = url;
 				head.appendChild(script);
 			} else {
-				let req = undefined;
+				let dataForXHRSend = undefined;
 				switch (method){
 					case 'PUT':
 					case 'POST':
-						req = typeof param === 'object'
-							? JSON.stringify(param)
-							: undefined;
+						if (isJson) {
+							dataForXHRSend = typeof param === 'object'
+								? JSON.stringify(param)
+								: undefined;
+						} else {
+							dataForXHRSend = isFormDataJson
+								? `data=${encodeURIComponent(JSON.stringify(param))}` // 业务需要
+								: paramArray.join('&');
+						}
 						break;
 					case 'DELETE':
 					case 'GET':
@@ -256,7 +316,7 @@ const ajax = _opts => {
 					default:
 						break;
 				}
-				xhr.open(method, url, true);
+				xhr.open(method, url, async);
 				xhr.withCredentials = true; // 允许发送cookie
 				// 跨域资源请求会发生两次 一次是204 可以参考cors // 无视就好
 				xhr.setRequestHeader(
@@ -265,10 +325,12 @@ const ajax = _opts => {
 				xhr.setRequestHeader(
 					'X-Requested-With', 'XMLHttpRequest'
 				);
-				
-				isJson
-					? xhr.send(req)
-					: xhr.send(method === 'POST' ? paramArray.join('&') : undefined);
+				for (const h in headers) {
+					if (headers.hasOwnProperty(h) && headers[h] !== null) {
+						xhr.setRequestHeader(h, headers[h]);
+					}
+				}
+				xhr.send(dataForXHRSend);
 			}
 
 		} catch (e) {

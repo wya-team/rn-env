@@ -24,9 +24,9 @@ class App extends Component {
 
 	handleRefresh() {
 		setTimeout(() => {
-			this.refs.pull.setDefault();
+			this && this.refs.pull.setDefault();
 		}, 5000);
-		
+
 	}
 
 	insertRowData() {

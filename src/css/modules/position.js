@@ -5,13 +5,13 @@ const dimensionWidth = Dimensions.get('window').width;
 const dimensionHeight = Dimensions.get('window').height;
 
 export const position = {
-	'g-p-r': {
+	'g-relative': {
 		position: 'relative'
 	},
-	'g-p-a': {
+	'g-absolute': {
 		position: 'absolute'
 	},
-	'g-p-f': {
+	'g-fixed': {
 		position: 'fixed'
 	},
 	'g-t-0': {

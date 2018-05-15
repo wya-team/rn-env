@@ -3,34 +3,29 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { Stacks } from './Stacks';
-import { addNavigationHelpers, NavigationActions } from 'react-navigation';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { Toast } from 'antd-mobile';
 
 import { _global } from './_global';
 import { getItem, setItem } from '@utils/utils';
 import { addListener } from '../stores/configureStore';
-let _navigation;
 class Router extends Component {
 	constructor(props, context) {
 		super(props, context);
+		_global.dispatch = props.dispatch;
 	}
-	getChildContext() {
-		return { 
-			navigation: this.navigation 
-		};
-	}
-
 	componentDidMount() {
 		if (!_global.token) {
-			const resetAction = NavigationActions.reset({
+			const { dispatch, commonNav } = this.props;
+			const resetAction = StackActions.reset({
 				index: 0,
 				actions: [
 					NavigationActions.navigate({ routeName: 'LoginMain' }),
 				],
 			});
-			this.navigation.dispatch(resetAction);
+			dispatch(resetAction);
 		}
-		
+
 		/**
 		 * ----------  Tip  ------------
 		 * 官方文档说createNavigationContainer可以用来监听android的返回键，部分源码：
@@ -64,25 +59,16 @@ class Router extends Component {
 	};
 	render() {
 		const { dispatch, commonNav } = this.props;
-		this.navigation = addNavigationHelpers({
+		this.navigation = {
 			dispatch,
 			state: commonNav,
 			addListener
-		});
-		_navigation = this.navigation;
+		};
 		return (
 			<Stacks navigation={this.navigation} />
 		);
 	}
 }
-
-Router.propTypes = {
-	// dispatch: PropTypes.func,
-	// commonNav: PropTypes.object,
-};
-Router.childContextTypes = {
-	navigation: PropTypes.object
-};
 const mapStateToProps = state => {
 	return {
 		commonNav: state.commonNav
@@ -93,5 +79,4 @@ const mapDispatchToProps = (dispatch) => {
 		dispatch
 	};
 };
-export { _navigation };
 export default connect(mapStateToProps, mapDispatchToProps)(Router);
