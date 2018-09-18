@@ -1,8 +1,7 @@
-import { Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile-rn';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { setItem, getItem, delItem } from './utils';
 import { _global } from '../router/_global';
-import { _navigation } from '../router/Router';
 let timer = new Date;
 const loadingFn = (msg) => {
 	Toast.hide();

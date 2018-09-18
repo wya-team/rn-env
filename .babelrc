@@ -6,7 +6,7 @@
 		[
 			"import",
 			{
-				"libraryName": "antd-mobile"
+				"libraryName": "antd-mobile-rn"
 			},
 			{
 				"libraryName": "wya-rc",

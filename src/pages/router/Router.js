@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { Stacks } from './Stacks';
 import { StackActions, NavigationActions } from 'react-navigation';
-import { Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile-rn';
 
 import { _global } from './_global';
 import { getItem, setItem } from '@utils/utils';
-import { addListener } from '../stores/configureStore';
+import { rootKey } from '../stores/configureStore';
+
+import { reduxifyNavigator } from 'react-navigation-redux-helpers';
+
+let AppNavigator = reduxifyNavigator(Stacks, rootKey);
+
 class Router extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -59,13 +64,11 @@ class Router extends Component {
 	};
 	render() {
 		const { dispatch, commonNav } = this.props;
-		this.navigation = {
-			dispatch,
-			state: commonNav,
-			addListener
-		};
 		return (
-			<Stacks navigation={this.navigation} />
+			<AppNavigator 
+				state={commonNav} 
+				dispatch={dispatch}
+			/>
 		);
 	}
 }
@@ -80,3 +83,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Router);
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
-import { InputItem, Toast } from 'antd-mobile';
+import { InputItem, Toast } from 'antd-mobile-rn';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as creators from '@actions/login';

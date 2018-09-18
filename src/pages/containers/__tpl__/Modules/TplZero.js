@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
-import { Button } from 'antd-mobile';
+import { Button } from 'antd-mobile-rn';
 import SetTitle from '@common/SetTitle/SetTitle';
 import * as creators from '@actions/__tpl__';
 import Content from '@components/__tpl__/Zero/Content';

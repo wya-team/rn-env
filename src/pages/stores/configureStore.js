@@ -11,15 +11,15 @@ const config = {
 };
 // 
 import {
-	createReduxBoundAddListener,
 	createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
+export const rootKey = "root";
 const navMiddleware = createReactNavigationReduxMiddleware(
-	"root",
+	rootKey,
 	state => state.commonNav,
 );
-export const addListener = createReduxBoundAddListener("root");
+
 import reducers from '../reducers/rootReducer';
 let rootReducer;
 // 针对所有的reducer都做缓存

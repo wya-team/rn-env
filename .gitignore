@@ -2,14 +2,14 @@
 
 # compiled output
 # /dist
-/tmp
-/.expo
+tmp
+.expo
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
-/.idea
+.idea
 .project
 .classpath
 .c9/
@@ -24,21 +24,21 @@
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
+.sass-cache
+connect.lock
+coverage/*
+libpeerconnection.log
 npm-debug.log
 testem.log
 /typings
 
 # e2e
-/e2e/*.js
-/e2e/*.map
+e2e/*.js
+e2e/*.map
 
 # System Files
 .DS_Store
 Thumbs.db
 
 # others
-/tests/coverage
+tests/coverage

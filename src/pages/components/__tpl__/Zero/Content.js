@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { Button, Toast } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile-rn';
 import * as types from '../../../constants/actions/__tpl__';
 import pureRender from '@utils/pure-render-decorator';
 

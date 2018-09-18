@@ -4,7 +4,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import * as types from '@constants/actions/login';
 import { createForm } from 'rc-form';
-import { InputItem, Toast } from 'antd-mobile';
+import { InputItem, Toast } from 'antd-mobile-rn';
 import Icon from '@common/Icon/Icon';
 import { className } from '@css/root';
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
