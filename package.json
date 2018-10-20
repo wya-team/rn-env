@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "author": "wya-team",
     "license": "MIT",
+    "main": "node_modules/expo/AppEntry.js",
     "scripts": {
         "start": "npm run dev",
         "dev": "npm run all",
