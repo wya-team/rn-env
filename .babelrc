@@ -17,19 +17,18 @@
 			"module-resolver",
 			{
 				"root": ["./src"],
-				"extensions": [".js", ".ios.js", ".android.js"],
+				"extensions": [".js", ".ios.js", ".android.js", ".png"],
 				"alias": {
+					"@assets": "./src/assets",
 					"@css": "./src/css",
 					"@images": "./src/images",
-					"@actions": "./src/pages/actions",
 					"@components": "./src/pages/components",
 					"@common":"./src/pages/components/_common",
 					"@constants": "./src/pages/constants",
 					"@containers": "./src/pages/containers",
-					"@middleware": "./src/pages/middleware",
-					"@reducers": "./src/pages/reducers",
-					"@router": "./src/pages/router",
+					"@routers": "./src/pages/routers",
 					"@stores": "./src/pages/stores",
+					"@services": "./src/pages/stores/services",
 					"@utils": "./src/pages/utils",
 					"pure-render-decorator": "./src/pages/utils/pure-render-decorator"
 				}

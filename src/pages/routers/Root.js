@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { View, Text } from 'react-native';
 import { AppLoading, Font } from 'expo';
 
-import configureStore from '../stores/configureStore';
+import createStore from '../stores/root';
 import { _global } from './_global';
 import { getItem } from '../utils/utils';
 /**
@@ -11,7 +11,7 @@ import { getItem } from '../utils/utils';
  */
 import Router from './Router';
 
-const store = configureStore();
+const store = createStore();
 // 控制
 if (__DEV__) {
 	window.store = store;

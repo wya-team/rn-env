@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button } from 'antd-mobile-rn';
 import SetTitle from '@common/SetTitle/SetTitle';
-import * as creators from '@actions/home';
+import * as creators from '@stores/actions';
 
 class Container extends React.Component {
 	constructor(...params) {

@@ -3,8 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-nativ
 import { InputItem, Toast } from 'antd-mobile-rn';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as creators from '@actions/login';
-import * as types from '@constants/actions/login';
+import * as creators from '@stores/actions';
 import { className } from '@css/root';
 import SetTitle from '@common/SetTitle/SetTitle';
 import Content from '@components/Login/Content';

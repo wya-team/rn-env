@@ -1,7 +1,7 @@
 import { Toast } from 'antd-mobile-rn';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { setItem, getItem, delItem } from './utils';
-import { _global } from '../router/_global';
+import { _global } from '@routers/_global';
 let timer = new Date;
 const loadingFn = (msg) => {
 	Toast.hide();
@@ -44,7 +44,7 @@ const otherCb = (res, successCb, errorCb) => {
 };
 const setUrlParams = (opts, token) => {
 	let url = opts.url;
-	let paramArray = [`token=${token}`];
+	let paramArray = [`token=${token || ''}`];
 	url += (url.indexOf('?') > -1 ? '&' : '?') + paramArray.join('&');
 	return {
 		...opts,
@@ -52,6 +52,8 @@ const setUrlParams = (opts, token) => {
 	};
 };
 const opts = {
+	restful: true,
+	// requestType: 'json',
 	onBefore: (opts) => {
 		return Promise.resolve(
 			setUrlParams(opts, _global.token)
@@ -171,7 +173,6 @@ export const ajax =  (_opts) => {
 				}
 				return;
 			}
-
 			// 正常业务流程
 			switch (response.status) {
 				case 1:
@@ -203,11 +204,14 @@ export const ajax =  (_opts) => {
 		try {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState == 4) {
+
 					!noLoading && !localData && loadedFn && loadedFn(noLoading);
+
 					if (xhr.status >= 200 && xhr.status < 300) {
 						// 可以加上try-catch
 						try {
 							let data = JSON.parse(xhr.responseText);
+							__DEV__ && console.log(`\n\n\n\nafter ajax: \nurl: ${url}\nmethod: ${method}\ndata: ${JSON.stringify(data)}\n\n\n\n`);
 							onDataReturn(data);
 						} catch (e) {
 							reject({
@@ -239,6 +243,8 @@ export const ajax =  (_opts) => {
 					paramArray.push(key + '=' + encodeURIComponent(param[key]));
 				}
 			}
+
+			__DEV__ && console.log(`\n\n\n\nbefore ajax: \nurl: ${url}\nmethod: ${method}\nparam: ${JSON.stringify(param)}\n\n\n\n`);
 
 			if (method === 'FORM') {
 				let formData = new FormData();
@@ -315,6 +321,7 @@ export const ajax =  (_opts) => {
 					default:
 						break;
 				}
+
 				xhr.open(method, url, async);
 				xhr.withCredentials = true; // 允许发送cookie
 				// 跨域资源请求会发生两次 一次是204 可以参考cors // 无视就好

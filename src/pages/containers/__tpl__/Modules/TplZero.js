@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Button } from 'antd-mobile-rn';
 import SetTitle from '@common/SetTitle/SetTitle';
-import * as creators from '@actions/__tpl__';
+import * as creators from '@stores/actions';
 import Content from '@components/__tpl__/Zero/Content';
 
 class Container extends React.Component {

@@ -1,6 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-import * as types from '../../constants/actions/home';
-import { Stacks } from '../../router/Stacks';
+import { Stacks } from '@routers/Stacks';
 import { getItem, setItem } from '@utils/utils';
 const initialState = Stacks.router.getStateForAction([]);
 

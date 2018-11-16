@@ -7,7 +7,7 @@ import SetTitle from '@common/SetTitle/SetTitle';
 import Keyboard from '@common/Keyboard/Keyboard';
 
 import { SafeAreaView } from 'react-navigation';
-import * as creators from '@actions/mine';
+import * as creators from '@stores/actions';
 import Content from '@components/__tpl__/Two/Content';
 import PullRefresh from '@common/PullRefresh/examples/Basic';
 import { TAB_BAR_HEIGHT } from '@constants/constants';

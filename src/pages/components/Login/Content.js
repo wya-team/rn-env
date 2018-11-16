@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import * as types from '@constants/actions/login';
 import { createForm } from 'rc-form';
 import { InputItem, Toast } from 'antd-mobile-rn';
 import Icon from '@common/Icon/Icon';
@@ -10,7 +9,7 @@ import { className } from '@css/root';
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
 
 import { getItem, setItem } from '@utils/utils';
-import { _global } from '@router/_global';
+import { _global } from '@routers/_global';
 
 @createForm()
 class Content extends Component {
@@ -43,7 +42,7 @@ class Content extends Component {
 			Toast.info("请输入密码", 1.5);
 			return false;
 		}
-		let url = types.LOGIN_MAIN_POST;
+		let url = 'LOGIN_MAIN_POST';
 		let param = {
 			name,
 			password

@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import api from '../middleware/api';
+import api from './middlewares/api';
 // 持久化数据, 具体参考官方
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -20,7 +20,7 @@ const navMiddleware = createReactNavigationReduxMiddleware(
 	state => state.commonNav,
 );
 
-import reducers from '../reducers/rootReducer';
+import reducers from './reducers/root';
 let rootReducer;
 // 针对所有的reducer都做缓存
 // rootReducer = persistReducer(config, reducers);
@@ -37,7 +37,7 @@ import { DEBUG } from '../constants/constants';
 
 // Chrome 结合 RemoteDev软件开发
 import { composeWithDevTools } from 'remote-redux-devtools';
-const configureStore = (initialState = {}) => {
+export default (initialState = {}) => {
 	// global __DEV__
 	let finalCreateStore = null;
 	if (DEBUG && __DEV__) {
@@ -61,12 +61,11 @@ const configureStore = (initialState = {}) => {
 	if (module.hot) {
 		// Enable hot module replacement for reducers
 		module.hot.accept(() => {
-			const nextRootReducer = require('../reducers/rootReducer').default;
+			const nextRootReducer = require('./reducers/root').default;
 			store.replaceReducer(nextRootReducer);
 		});
 	}
 
 	return store;
 };
-export default configureStore;
 

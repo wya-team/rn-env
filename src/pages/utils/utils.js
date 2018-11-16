@@ -9,7 +9,8 @@
  * 2.设置储存时间
  */
 import { AsyncStorage, DeviceStorage } from 'react-native';
-import { _global } from '../router/_global';
+import { _global } from '@routers/_global';
+import { isEqualWith } from 'lodash';
 /**
  * 获取
  * 安卓拿不到值，不会继续reject
@@ -90,5 +91,127 @@ export const initObj = {
 	isEnd: 0, // 是否正在加载 0 上拉加载，1为加载中，2为已全部加载,3数据异常
 	itemArr: [],
 	itemObj: {},
+};
 
+export const initTreeData = (obj, value, label, children) => {
+	if (typeof obj === 'object') {
+		return JSON.parse(
+			JSON.stringify(obj)
+				.replace(new RegExp(value, 'g'), 'value')
+				.replace(new RegExp(label, 'g'), 'label')
+				.replace(new RegExp(`children|${children}`, 'g'), 'children')
+		);
+	};
+	console.error('参数错误');
+	return [];
+};
+
+/**
+ * for Service Compare
+ */
+export const serviceObj = {
+	param: {},
+	data: undefined
+};
+export const serviceCompare = (newParam, localObj) => {
+	return isEqualWith(newParam, localObj.param)
+		? localObj.data
+		: undefined;
+};
+
+
+// 用于对象 
+// @createMixins({})
+// class {}
+export const createMixins = (...mixins) => target => {
+	Object.assign(target.prototype, ...mixins);
+};
+
+
+/* 验证数据*/
+export let objRegex = {
+	validNum: {
+		regex: /^\d+(\.\d+)?$/,
+		error: "请输入正确数字"
+	},
+	validInteger: {
+		regex: /^[1-9]\d*$/,
+		error: "请输入非负整数"
+	},
+	validEmail: {
+		regex: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
+		error: "邮箱格式不正确"
+	},
+	validDate: {
+		regex: /^\d{4}(\-|\/|\.)\d{1,2}\1\d{1,2}$/,
+		error: "日期格式不正确"
+	},
+	validTime: {
+		regex: /\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/,
+		error: "时间格式不正确"
+	},
+	validId: {
+		// regex: /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/,
+		regex: /(^[0-9a-zA-Z]{6,}$)/, // 港澳台比较特殊
+		error: "身份证格式不正确"
+	},
+	validPrice: {
+		// regex: /^([+-]?[1-9][\d]{0,3}|0)([.]?[\d]{1,2})?$/,
+		regex: /^([1-9][\d]{0,10}|0)([.]?[\d]{1,2})?$/,
+		error: "请输入正确金额"
+	},
+	validMobile: {
+		regex: /^(13[0-9]|14[5|7]|15[^4|^\D]|17[0-9]|19[8|9]|166|18[0-9])\d{8}$/,
+		// regex: /^\d+(\.\d+)?$/,
+		error: "请填写正确的手机号码"
+	},
+	validPhone: {
+		regex: /^(\(\d{3,4}\)|\d{3,4}(-|\s)?)?\d{7,8}(-\d{1,4})?$/,
+		error: "请填写正确的电话号码"
+	},
+	validPostalCode: {
+		regex: /^\d{4}$/,
+		error: "请输入4位短信验证码"
+	},
+	validZipCode: {
+		regex: /^\d{6}$/,
+		error: "请输入6位邮政编码"
+	},
+	validWeChat: {
+		regex: /^[a-zA-Z\d_-]{5,}$/,
+		error: "请输入正确的微信号"
+	},
+	validName: {
+		regex: /^[A-Za-z0-9\u4e00-\u9fa5_-]{1,}$/,
+		error: "请不要输入特殊字符"
+	}
+};
+
+/**
+ * 验证数据
+ * @param  {String} rule 规则
+ * @param  {String} value 校正的value
+ * @param  {String} callback 回调报错
+ * @return {String}
+ */
+export const dataValidity = (rule, value, callback, opts = {}) => {
+	let error;
+	if (typeof value === 'string') {
+		value = value.trim();
+	}
+	if (rule.required && !value) {
+		error = rule.name + "必填";
+		callback(error);
+		return false;
+	}
+	if (rule.type == 'validMobile') {
+		value = value || '';
+		value = value.replace(/\s/g, '');
+	}
+	if (objRegex[rule.type] && value && !objRegex[rule.type].regex.test(value)) {
+		error = objRegex[rule.type].error;
+		callback(error);
+	} else {
+		callback();
+	}
 };

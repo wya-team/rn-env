@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
 
-import Root from './src/pages/router/Root';
+import Root from './src/pages/routers/Root';
 
 // AppRegistry.registerComponent('RNApp', () => Root);
 

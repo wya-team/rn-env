@@ -8,7 +8,7 @@ import { Toast } from 'antd-mobile-rn';
 
 import { _global } from './_global';
 import { getItem, setItem } from '@utils/utils';
-import { rootKey } from '../stores/configureStore';
+import { rootKey } from '../stores/root';
 
 import { reduxifyNavigator } from 'react-navigation-redux-helpers';
 

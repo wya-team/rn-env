@@ -1,10 +1,9 @@
-import * as types from '../../constants/actions/home';
 const initialState = {
 	isFetching: 0,      // 是否已经获取
 };
-export const homeMain = (state = initialState, action) => {
+export const commonAuth = (state = initialState, action) => {
 	switch (action.type) {
-		case types.HOME_MAIN_GET + '_SUCCESS':
+		case 'HOME_MAIN_GET_SUCCESS':
 			return {
 				...state,
 				isFetching: 1,

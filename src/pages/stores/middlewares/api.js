@@ -1,5 +1,5 @@
-import net from '../utils/net';
-import API_ROOT from '../constants/apiRoot';
+import net from '../../utils/net';
+import API_ROOT from '../apis/root';
 const middlewareApi = store => next => action => {
 	let API_OPT = action['API'];
 
@@ -13,7 +13,7 @@ const middlewareApi = store => next => action => {
 	 * 如果有传递localData，就不会触发ajax了，直接触发_success
 	 * 当前也可以传其他参数
 	 */
-	let { 
+	let {
 		localData,
 		requestOnStop, // 是否需要出发请求_ON
 		setPage,
@@ -54,7 +54,7 @@ const middlewareApi = store => next => action => {
 		url: API_ROOT[apiName],
 		type: ajaxType,
 		param,
-		localData, 
+		localData,
 		noLoading: param.page === undefined ? noLoading : true
 	}).then(data => {
 		params = { // 由于后端格式是status:1,data:{}
@@ -62,7 +62,7 @@ const middlewareApi = store => next => action => {
 			data: data.data
 		};
 		//  触发请求成功的action
-		pullToRefresh 
+		pullToRefresh
 			? next(nextAction(`${redirectActionType || apiName}_REFRESH`, params, opts))
 			: next(nextAction(`${redirectActionType || apiName}_SUCCESS`, params, opts));
 		onSuccess && onSuccess(data);

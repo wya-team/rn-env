@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { Button, Toast } from 'antd-mobile-rn';
-import * as types from '../../../constants/actions/__tpl__';
 import pureRender from '@utils/pure-render-decorator';
 
 @pureRender
@@ -11,7 +10,7 @@ class Content extends React.Component {
 		super(...params);
 	}
 	handleAsync = () => {
-		let url = types.TPL_ZERO_ASYNC_POST;
+		let url = 'TPL_ZERO_ASYNC_POST';
 		let param = {};
 		let params = {
 			param: param,
@@ -34,10 +33,10 @@ class Content extends React.Component {
 				<Text> {count} 次数</Text>
 				<Text>&nbsp;</Text>
 				<Button
-					onClick={() => (actions.plusFn(), Toast.info('操作成功 +1', 1.5))}
+					onClick={() => (actions.emit('TPL_ZERO_PLUS'), Toast.info('操作成功 +1', 1.5))}
 				>+</Button>
 				<Button
-					onClick={() => (actions.minFn(), Toast.info('操作成功 -1', 1.5))}
+					onClick={() => (actions.emit('TPL_ZERO_MIN'), Toast.info('操作成功 -1', 1.5))}
 				>-</Button>
 				<Button
 					onClick={this.handleAsync}
