@@ -59,7 +59,7 @@ const RouteConfigs = {
 };
 // 路由配置
 const StackConfig = {
-	initialRouteName: 'TabBar',
+	initialRouteName: 'TplThree',
 	headerMode: 'none',
 	// mode: Platform.OS === 'ios' ? 'card' : 'modal',
 	mode: 'card',

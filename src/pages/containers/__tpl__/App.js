@@ -2,6 +2,7 @@ import TplMain from './Modules/TplMain';
 import TplZero from './Modules/TplZero';
 import TplOne from './Modules/TplOne';
 import TplTwo from './Modules/TplTwo';
+import TplThree from './Modules/TplThree';
 export const tplConfig = {
 	// [RouterName][*SecondName]: [Component]
 	TplMain: {
@@ -19,5 +20,9 @@ export const tplConfig = {
 	TplTwo: {
 		screen: TplTwo,
 		path: '/tpl/two'
+	},
+	TplThree: {
+		screen: TplThree,
+		path: '/tpl/three'
 	}
 };

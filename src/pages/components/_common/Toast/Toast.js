@@ -8,7 +8,7 @@ class Toast extends Component {
 	static positions = positions;
 	static durations = durations;
 
-	static show = (message, options = { position: positions.BOTTOM, duration: durations.SHORT }) => {
+	static show = (message, options = { position: positions.CENTER, duration: durations.SHORT }) => {
 		return new RootSiblings(
 			<Core
 				{...options}

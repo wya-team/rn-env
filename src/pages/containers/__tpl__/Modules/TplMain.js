@@ -15,6 +15,10 @@ let list = [
 	{
 		title: '02 - TextInput/ScrollView',
 		route: 'TplTwo'
+	},
+	{
+		title: '03 - Modal/Toast',
+		route: 'TplThree'
 	}
 ];
 class Container extends React.Component {

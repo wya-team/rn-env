@@ -3,9 +3,10 @@ import { View } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 
 export default (options = {}) => Viewer => {
-	return Target = {
-		viewer: null, // 只会存在一个viewer，除非需要数组;
-		show(opts = {}) {
+	let viewer = null; // 只会存在一个viewer，除非需要数组;
+
+	return class Target {
+		static show(opts = {}) {
 			return new Promise((resolve, reject) => {
 				this.close();
 				opts = {
@@ -23,20 +24,20 @@ export default (options = {}) => Viewer => {
 						reject(res);
 					},
 				};
-				this.viewer = new RootSiblings( <Viewer {...opts} /> );
+				viewer = new RootSiblings( <Viewer {...opts} /> );
 			});
-		},
-		close() {
-			if (this.viewer instanceof RootSiblings) {
-				this.viewer.destroy();
-				this.viewer = null;
+		}
+		static close() {
+			if (viewer instanceof RootSiblings) {
+				viewer.destroy();
+				viewer = null;
 			}
-		},
-		popup(opts) {
+		}
+		static popup(opts) {
 			if (typeof opts !== 'object') {
 				return console.error('opts is not object');
 			}
-			return Tpl.show(opts);
+			return Target.show(opts);
 		}
 	};
 };
