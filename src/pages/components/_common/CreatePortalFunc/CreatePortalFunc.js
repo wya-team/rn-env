@@ -8,12 +8,12 @@ export default (options = {}) => Viewer => {
 	return class Target {
 		static show(opts = {}) {
 			return new Promise((resolve, reject) => {
-				this.close();
+				Target.close();
 				opts = {
 					...opts,
 					show: true,
 					onCloseSoon: () => {
-						this.close();
+						Target.close();
 					},
 					onSure: (res) => {
 						opts.onCloseSoon();

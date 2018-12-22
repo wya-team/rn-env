@@ -1,6 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import React, { Fragment } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Animated } from 'react-native';
 import PropTypes from 'prop-types';
+import FadeAnimation from '../Animations/FadeAnimation';
+
+const { height, width } = Dimensions.get("window");
 let style = {
 	position: 'absolute',
 	left: 0,
@@ -10,29 +13,64 @@ let style = {
 	// justifyContent: 'flex-end',
 	backgroundColor: 'rgba(0,0,0,.3)'
 };
-const DIMENSION = Dimensions.get('window');
 
-class Modal extends React.Component {
+class Popup extends React.Component {
 	constructor(...params) {
 		super(...params);
+		this.state = { 
+			translateY: new Animated.Value(height),
+			opacity: new Animated.Value(0)
+		};
+	}
+	componentDidMount() {
+		Animated.timing(
+			this.state.translateY,
+			{ toValue: 0 }
+		).start();
+
+		Animated.timing(
+			this.state.opacity,
+			{ toValue: 1 }
+		).start();
 	}
 	handlePress = async () => {	
-		this.props.onClose();
+		try {
+			Animated.timing(
+				this.state.translateY,
+				{ toValue: height }
+			).start();
+
+			Animated.timing(
+				this.state.opacity,
+				{ toValue: 0 }
+			).start();
+			setTimeout(() => {
+				this.props.onClose();
+			}, 500);
+		} catch (e) {
+			console.log(e);
+		}
+		
 	}
 	render() {
+		const { translateY, opacity } = this.state;
+
 		return (
-			<View onPress={this.handlePress} style={style}>
-				<TouchableOpacity onPress={this.handlePress} style={{ flex: 1 }} />
-				<View style={{ height: 500, backgroundColor: 'white', width: DIMENSION.width }}>
-					{
-						this.props.children
-					}
+			<Fragment>
+				<Animated.View style={[style, { opacity }]} />
+				<View  style={[style, { height, backgroundColor: 'rgba(0,0,0,0)' }]}>
+					<TouchableOpacity onPress={this.handlePress} style={{ flex: 1, opacity: 0 }} />
+					<Animated.View style={{ height: 500, backgroundColor: 'white', width, transform: [{ translateY }] }}>
+						{
+							this.props.children
+						}
+					</Animated.View>
 				</View>
-			</View>
+			</Fragment>
 		);
 	}
 }
 
-Modal.contextTypes = {
+Popup.contextTypes = {
 };
-export default Modal;
+export default Popup;
