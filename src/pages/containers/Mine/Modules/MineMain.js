@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button } from 'antd-mobile-rn';
+import { Button } from '@ant-design/react-native';
 import SetTitle from '@common/SetTitle/SetTitle';
 import Keyboard from '@common/Keyboard/Keyboard';
 

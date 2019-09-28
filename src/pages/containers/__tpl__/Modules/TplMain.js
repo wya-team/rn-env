@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Button, Toast } from 'antd-mobile-rn';
+import { Button, Toast } from '@ant-design/react-native';
 import SetTitle from '@common/SetTitle/SetTitle';
 
 let list = [

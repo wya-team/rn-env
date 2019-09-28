@@ -38,7 +38,8 @@ let styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		// zIndex: 1000 // 无效
 	},
 	containerStyle: {
 		padding: 10,
@@ -188,13 +189,7 @@ class Core extends Component {
 							pointerEvents="none"
 							ref={ele => this.root = ele}
 						>
-							<Text style={[
-								styles.textStyle,
-								props.textStyle,
-								props.textColor && { color: props.textColor }
-							]}>
-								{this.props.children}
-							</Text>
+							{this.props.children}
 						</Animated.View>
 					</TouchableWithoutFeedback>
 				</View>
@@ -228,14 +223,10 @@ Core.defaultProps = {
 	visible: false,
 	duration: durations.SHORT,
 	animation: true,
-	shadow: true,
-	position: positions.BOTTOM,
+	shadow: false,
+	position: positions.CENTER,
 	opacity: 0.8,
 	delay: 0,
 	hideOnPress: true
 };
 export default Core;
-export {
-	positions,
-	durations
-};

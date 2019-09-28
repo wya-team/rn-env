@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { Stacks } from './Stacks';
 import { StackActions, NavigationActions } from 'react-navigation';
-import { Toast } from 'antd-mobile-rn';
+import { Toast } from '@ant-design/react-native';
 
 import { _global } from './_global';
 import { getItem, setItem } from '@utils/utils';
 import { rootKey } from '../stores/root';
 
-import { reduxifyNavigator } from 'react-navigation-redux-helpers';
+import { createReduxContainer } from 'react-navigation-redux-helpers';
 
-let AppNavigator = reduxifyNavigator(Stacks, rootKey);
+let AppNavigator = createReduxContainer(Stacks, rootKey);
 
 class Router extends Component {
 	constructor(props, context) {

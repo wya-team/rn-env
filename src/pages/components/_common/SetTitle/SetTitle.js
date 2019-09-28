@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, StatusBar, Image } from 'react-native';
 import { SafeAreaView, withNavigationFocus } from 'react-navigation';
-import Icon from '@common/Icon/Icon';
-import { Constants } from 'expo';
-import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
-const TITLE_BAR_HEIGHT = 44; // Platform.OS === 'ios' ? 44 : 56
-const LOLLIPOP = 21;
+import Icon from '../Icon/Icon';
+import Constants from 'expo-constants';
+import { WIDTH_SCALE, HEIGHT_SCALE, WINDOW_WIDTH, WINDOW_HEIGHT } from '@css/modules/dimension';
+export const TITLE_BAR_HEIGHT = 44; // Platform.OS === 'ios' ? 44 : 56
+export const LOLLIPOP = 21;
+
 @withNavigationFocus
-class SetTitle extends PureComponent{
-	constructor(params) {
+class SetTitle extends PureComponent {
+	constructor(...params) {
 		super(...params);
 	}
 	handleGoBack = () => {
@@ -30,11 +31,12 @@ class SetTitle extends PureComponent{
 		}
 	}
 	render() {
-		const {
-			tag: Tag,
+		let {
+			tag: Tag = View,
 			style,
 			title,
 			showBack,
+			renderLeftView,
 			renderRightView,
 			barProps,
 			showStatusBarPlaceholder,
@@ -45,7 +47,6 @@ class SetTitle extends PureComponent{
 			hidden,
 			barStyle
 		} = barProps;
-		// console.log(curRouteName === routeName, routeName);
 		return (
 			<Tag style={[styles.container, style.container]}>
 				{ (curRouteName === routeName) && <StatusBar {...barProps} /> }
@@ -66,14 +67,18 @@ class SetTitle extends PureComponent{
 								onPress={this.handleGoBack}
 							>
 								{
-									<Text >&#10094;</Text>
+									// <Text >&#10094;</Text>
 								}
-								{
-									// 二选一
-									// <Icon type="left" styleIcon={[styles.backIcon, style.backIcon]} />
-								}
+								<Icon type="left" styleIcon={style.backIcon} />
 							</TouchableOpacity>
 						)}
+						{
+							renderLeftView && (
+								typeof renderLeftView == 'object' 
+									? renderLeftView
+									: renderLeftView()
+							) 
+						}
 						<View style={[styles.content, style.content]}>
 							{
 								typeof title === 'string'
@@ -89,7 +94,11 @@ class SetTitle extends PureComponent{
 						</View>
 						<View style={{ flex: 1 }} />
 						{
-							renderRightView && renderRightView()
+							renderRightView && (
+								typeof renderRightView == 'object' 
+									? renderRightView
+									: renderRightView()
+							) 
 						}
 					</View>
 				)}
@@ -100,11 +109,12 @@ class SetTitle extends PureComponent{
 	}
 }
 SetTitle.propTypes = {
-	tag: PropTypes.func,
+	tag: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 	style: PropTypes.object,
 	title: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.bool]),
 	showBack: PropTypes.bool,
-	renderRightView: PropTypes.func,
+	renderLeftView: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	renderRightView: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 	barProps: PropTypes.object,
 	showStatusBarPlaceholder: PropTypes.bool,
 	onBackBefore: PropTypes.func
@@ -115,7 +125,6 @@ SetTitle.defaultProps = {
 	/**
 	 * 	更多的自定义状态了背景，暂时不用SafeAreaView
 	 */
-	tag: View,
 	barProps: {
 		barStyle: "dark-content",
 		/**
@@ -172,7 +181,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: '#222',
-		fontSize: 32 * WIDTH_SCALE,
+		fontSize: 40 * WIDTH_SCALE,
+		letterSpacing: 3
 	},
 	content: {
 		flex: 1,
@@ -185,26 +195,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
+	bg: {
+		position: 'absolute',
+		height: 750 * WIDTH_SCALE,
+		width: WINDOW_WIDTH,
+		backgroundColor: '#fff'
+	} 
 });
 
-export const getCurRouteName = (arr) => {
-	const { index, routes } = arr;
-	if (routes[index].routes && routes[index].routes instanceof Array) {
-		return getCurRouteName(routes[index]);
-	} else {
-		return routes[index];
-	}
-};
-const mapStateToProps = (state, ownProps) => {
-	return {
-		curRouteName: getCurRouteName(state.commonNav).routeName,
-	};
-};
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		dispatch
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SetTitle);
+export default SetTitle;

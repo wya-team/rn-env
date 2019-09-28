@@ -1,12 +1,12 @@
 import React from 'react';
 import {
 	createBottomTabNavigator,
-	createStackNavigator,
 	TabRouter,
-	createNavigationContainer,
+	createAppContainer,
 	createNavigator,
 } from 'react-navigation';
 
+import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
 import { TAB_BAR_HEIGHT } from '@constants/constants';
 import { Viewer } from './Tabs/Viewer';
@@ -46,7 +46,7 @@ const Tabs = TabRouter(
 
 
 
-const tabsConfig = createNavigationContainer(
+const tabsConfig = createAppContainer(
 	createNavigator(Viewer, Tabs, {})
 );
 // 路由设置
@@ -59,7 +59,7 @@ const RouteConfigs = {
 };
 // 路由配置
 const StackConfig = {
-	initialRouteName: 'TplThree',
+	initialRouteName: 'TabBar',
 	headerMode: 'none',
 	// mode: Platform.OS === 'ios' ? 'card' : 'modal',
 	mode: 'card',

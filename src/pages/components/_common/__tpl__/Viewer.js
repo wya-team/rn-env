@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
 import { className } from '@css/root';
-import { InputItem, Toast } from 'antd-mobile-rn';
+import { InputItem, Toast } from '@ant-design/react-native';
 
 class Viewer extends Component {
 	constructor() {

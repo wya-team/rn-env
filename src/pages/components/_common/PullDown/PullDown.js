@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Asset, Constants, ScreenOrientation } from 'expo';
+import { Asset, ScreenOrientation } from 'expo';
+import Constants from 'expo-constants';
 // ScreenOrientation.allow(ScreenOrientation.Orientation.ALL);
 
 import {

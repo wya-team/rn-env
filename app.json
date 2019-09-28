@@ -1,26 +1,64 @@
 {
-    "expo": {
-        "name": "RNExample",
-        "description": "RNExample",
-        "version": "1.0.0",
-        "slug": "RNExample",
-        "privacy": "public",
-        "orientation": "portrait",
-        "primaryColor": "#cccccc",
-        "sdkVersion": "30.0.0",
-        "ios": {
-            "bundleIdentifier": "com.deot.rn",
-            "loadJSInBackgroundExperimental": true
-        },
-        "android": {
-            "package": "com.deot.rn"
-        },
-        "assetBundlePatterns": [
-            "src/assets/images/*",
-            "src/assets/fonts/*",
-        ],
-        "splash": {
-            "image": "./src/assets/images/splash.png"
-        }
-    }
+  "expo": {
+    "name": "RNExample",
+    "description": "RNExample",
+    "version": "1.0.0",
+    "slug": "RNExample",
+    "privacy": "public",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "sdkVersion": "35.0.0",
+    "ios": {
+      "bundleIdentifier": "com.deot.rn",
+      "loadJSInBackgroundExperimental": true,
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "RNExample需要你打开相机权限，以方便添加图片内容",
+        "NSPhotoLibraryUsageDescription": "RNExample需要你打开相册权限，以方便添加图片内容",
+        "NSPhotoLibraryAddUsageDescription": "RNExample需要你打开相册权限，以方便添加图片内容",
+        "NSLocationWhenInUseUsageDescription": "RNExample需要你打开定位系统，以方便添加地址内容"
+      }
+    },
+    "android": {
+      "package": "com.deot.rn",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "MANAGE_DOCUMENTS",
+        "READ_CONTACTS",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "READ_EXTERNAL_STORAGE",
+        "READ_PHONE_STATE",
+        "RECORD_AUDIO",
+        "USE_FINGERPRINT",
+        "VIBRATE",
+        "WAKE_LOCK",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.providers.gsf.permission.READ_GSERVICES",
+        "com.htc.launcher.permission.READ_SETTINGS",
+        "com.htc.launcher.permission.UPDATE_SHORTCUT",
+        "com.majeur.launcher.permission.UPDATE_BADGE",
+        "com.sec.android.provider.badge.permission.READ",
+        "com.sec.android.provider.badge.permission.WRITE",
+        "com.sonyericsson.home.permission.BROADCAST_BADGE"
+      ]
+    },
+    "assetBundlePatterns": [
+      "src/assets/images/*",
+      "src/assets/fonts/*"
+    ],
+    "splash": {
+      "image": "./src/assets/images/splash.png"
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  }
 }

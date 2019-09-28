@@ -1,4 +1,4 @@
-export default {
+export const iconObj = {
 	up: `\ue641`,
 	down: `\ue642`,
 	left: `\ue631`,
@@ -19,3 +19,9 @@ export default {
 	wechat: `\ue661`,
 	gps: `\ue606`
 };
+
+export const imageObj = {
+	// up: require()
+};
+
+

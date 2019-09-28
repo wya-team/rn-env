@@ -1,20 +1,18 @@
 import React, { Component, } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
-import Core, { positions, durations } from './Core';
+import Core from './Core';
 
-class Toast extends Component {
+class Toasts extends Component {
 	static propTypes = Core.propTypes;
-	static positions = positions;
-	static durations = durations;
 
-	static show = (message, options = { position: positions.CENTER, duration: durations.SHORT }) => {
+	static info = (message, opts = {}) => {
 		return new RootSiblings(
 			<Core
-				{...options}
+				{...opts}
 				visible={true}
 			>
-				{message}
+				<Text style={{ color: "white" }}>{message}</Text>
 			</Core>
 		);
 	};
@@ -26,6 +24,17 @@ class Toast extends Component {
 			console.warn(`Toast.hide expected a \`RootSiblings\` instance as argument.\nBut got \`${typeof toast}\` instead.`);
 		}
 	};
+
+	static loading = () => {
+		return new RootSiblings(
+			<Core visible={true} duration={0} containerStyle={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }}>
+				<ActivityIndicator 
+					size="large" 
+					color="white" 
+				/>
+			</Core>
+		);
+	}
 	constructor(...params) {
 		super(...params);
 		this._toast = null;
@@ -58,4 +67,4 @@ class Toast extends Component {
 	}
 }
 
-export default Toast;
+export default Toasts;

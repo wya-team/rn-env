@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { createForm } from 'rc-form';
-import { InputItem, Toast } from 'antd-mobile-rn';
+import { InputItem, Toast } from '@ant-design/react-native';
 import Icon from '@common/Icon/Icon';
 import { className } from '@css/root';
 import { WIDTH_SCALE, HEIGHT_SCALE } from '@css/modules/dimension';
